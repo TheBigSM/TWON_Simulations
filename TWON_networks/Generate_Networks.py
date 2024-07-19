@@ -6,7 +6,7 @@ import random
 import math
 import os
 from dotenv import load_dotenv
-database_url = "mongodb+srv://abdulsittar72:2106010991As@cluster0.xiwcv4m.mongodb.net/networks?retryWrites=true&w=majority&appName=Cluster0"#os.getenv('DB_URL2')
+database_url = os.getenv('DB_URL2')
 
 
 def main( model : str ,num_of_users : int , m: int):
