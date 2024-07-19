@@ -8,29 +8,29 @@ Note: Currently, the work is an alpha version and will undergo breaking changes 
 
 ```
 # install Python requirements
-install_network:
+make install_network:
 	@echo "Installing Python dependencies..."
 	cd TWON_networks && pip install -r requirements.txt
 
 # install Node.js dependencies
-install_node:
+make install_node:
 	@echo "Installing Node.js dependencies..."
 	cd Recommender && npm install
 	cd ../Schedular && npm install
 
 # Run networks.py 
-generate_networks:
+make generate_networks:
 	@echo "Running networks.py..."
 	python TWON_networks/Generate_Networks.py > networks.log 2>&1
 
 # Run recommender.js and schedular.js together
-run_recommender_schedular:
+make run_recommender_schedular:
 	@echo "Running recommender.js and schedular.js..."
 	(cd Recommender && node recommender.js) &
 	(cd Schedular && node Schedular.js) &
 
 # Target to install all dependencies
-install: install_network install_node
+make install: install_network install_node
 
-all: install generate_networks run_recommender_schedular
+make all: install generate_networks run_recommender_schedular
 ```
