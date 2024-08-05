@@ -29,7 +29,7 @@ make generate_networks
 ```
 This target runs the recommender.js script from the Recommender directory and the schedular.js script from the Schedular directory simultaneously.
 ```sh
-make install
+make run_recommender_schedular
 ```
 This target installs both the Python and Node.js dependencies by running make install_network and make install_node.
 
