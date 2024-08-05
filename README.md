@@ -14,6 +14,7 @@ This project involves running a series of scripts written in Python and Node.js.
 ## Makefile Targets
 
 The `Makefile` includes the following targets:
+
 This target installs the python dependencies for TWON_networks directory.
 ```sh
 make install_network
