@@ -2,8 +2,6 @@
 
 The repository contains a three modules recommender, schedular, and networks. The first module recommender run the ranking service and update the ranking of the feed. The second module schedular run the service to get response from different LLMs. The third module is network generation that is to create a graph of users in mongodb.
 
-Note: Currently, the work is an alpha version and will undergo breaking changes during the development.
-
 ## Project Setup
 
 ```
