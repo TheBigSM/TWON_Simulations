@@ -55,3 +55,16 @@ The `Makefile` includes the following targets:
 
 ```sh
 make install_network
+This target installs the Node.js dependencies for both the Recommender and Schedular directories.
+
+make install_node
+This target runs the Generate_Networks.py script located in the TWON_networks directory. The output is logged to networks.log.
+
+make generate_networks
+This target runs the recommender.js script from the Recommender directory and the schedular.js script from the Schedular directory simultaneously.
+
+make install
+This target installs both the Python and Node.js dependencies by running make install_network and make install_node.
+
+make all
+This target installs all dependencies, generates networks, and then runs the recommender and schedular scripts. It is equivalent to running make install, make generate_networks, and make run_recommender_schedular in sequence.
