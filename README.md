@@ -33,7 +33,7 @@ This target runs the recommender.js script from the Recommender directory and th
 make install
 ```
 This target installs both the Python and Node.js dependencies by running make install_network and make install_node.
-```sh
+
 make all
 ```
 This target installs all dependencies, generates networks, and then runs the recommender and schedular scripts. It is equivalent to running make install, make generate_networks, and make run_recommender_schedular in sequence.
