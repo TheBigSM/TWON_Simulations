@@ -34,3 +34,24 @@ make install: install_network install_node
 
 make all: install generate_networks run_recommender_schedular
 ```
+
+
+
+
+# Project Setup and Execution
+
+This project involves running a series of scripts written in Python and Node.js. The `Makefile` provided in this repository helps automate the process of installing dependencies and running the scripts in the correct order.
+
+## Prerequisites
+
+- **Python**: Make sure Python is installed on your system. You can download it from [python.org](https://www.python.org/).
+- **Node.js**: Make sure Node.js is installed on your system. You can download it from [nodejs.org](https://nodejs.org/).
+
+## Makefile Targets
+
+The `Makefile` includes the following targets:
+
+### 1. Install Python Requirements
+
+```sh
+make install_network
