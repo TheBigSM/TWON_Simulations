@@ -27,7 +27,7 @@ This target runs the Generate_Networks.py script located in the TWON_networks di
 ```sh
 make generate_networks
 ```
-This target runs the recommender.js script from the Recommender directory and the schedular.js script from the Schedular directory simultaneously.
+This target runs the recommender.js script from the Recommender directory and the schedular.js script from the Schedular directory simultaneously and the output is logged to ranker.log and Schedular.log.
 ```sh
 make run_recommender_schedular
 ```
