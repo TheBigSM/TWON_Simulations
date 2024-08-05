@@ -15,8 +15,6 @@ This project involves running a series of scripts written in Python and Node.js.
 
 The `Makefile` includes the following targets:
 
-### 1. Install Python Requirements
-
 ```sh
 make install_network
 ```
