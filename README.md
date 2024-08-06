@@ -2,35 +2,32 @@
 
 The repository contains a three modules recommender, schedular, and networks. The first module recommender run the ranking service and update the ranking of the feed. The second module schedular run the service to get response from different LLMs. The third module is network generation that is to create a graph of users in mongodb.
 
-Note: Currently, the work is an alpha version and will undergo breaking changes during the development.
+# Project Setup and Execution
 
-## Project Setup
+This project involves running a series of scripts written in Python and Node.js. The `Makefile` provided in this repository helps automate the process of installing dependencies and running the scripts in the correct order.
 
+## Prerequisites
+
+- **Python**: Make sure Python is installed on your system. You can download it from [python.org](https://www.python.org/).
+- **Node.js**: Make sure Node.js is installed on your system. You can download it from [nodejs.org](https://nodejs.org/).
+
+## Makefile Targets
+
+The `Makefile` includes the following targets:
+
+This target installs the python dependencies for TWON_networks directory.
+```sh
+make install_network
 ```
-# install Python requirements
-make install_network:
-	@echo "Installing Python dependencies..."
-	cd TWON_networks && pip install -r requirements.txt
-
-# install Node.js dependencies
-make install_node:
-	@echo "Installing Node.js dependencies..."
-	cd Recommender && npm install
-	cd ../Schedular && npm install
-
-# Run networks.py 
-make generate_networks:
-	@echo "Running networks.py..."
-	python TWON_networks/Generate_Networks.py > networks.log 2>&1
-
-# Run recommender.js and schedular.js together
-make run_recommender_schedular:
-	@echo "Running recommender.js and schedular.js..."
-	(cd Recommender && node recommender.js) &
-	(cd Schedular && node Schedular.js) &
-
-# Target to install all dependencies
-make install: install_network install_node
-
-make all: install generate_networks run_recommender_schedular
+This target installs the Node.js dependencies for both the Recommender and Schedular directories.
+```sh
+make install_node
+```
+This target runs the Generate_Networks.py script located in the TWON_networks directory. The output is logged to networks.log.
+```sh
+make generate_networks
+```
+This target runs the recommender.js script from the Recommender directory and the schedular.js script from the Schedular directory simultaneously and the output is logged to ranker.log and Schedular.log.
+```sh
+make run_recommender_schedular
 ```
