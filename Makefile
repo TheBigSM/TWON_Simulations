@@ -5,7 +5,6 @@ install_network:
 # Target to install Node.js dependencies
 install_node:
 	@echo "Installing Node.js dependencies..."
-	cd Ranker && npm install
 	cd Schedular && npm install
 
 # Target to run networks.py 
