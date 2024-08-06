@@ -18,7 +18,7 @@ require('dotenv').config();
 const { ObjectId } = require('mongodb');
 const axios = require('axios');
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const serDelayTime = 5000;//0.5 * 60 * 1000;//3*60*1000;
+const serDelayTime = 15000;//0.5 * 60 * 1000;//3*60*1000;
 const agentDelayTime = 0.4 * 60 * 1000;//4*60*1000;
 const genDelayTime = 2 * 60 * 1000;//20*60*1000;
 var serCount = 0
@@ -636,9 +636,9 @@ async function agent_Like_Comment_Loop(randomAgent) {
 };
 
 async function agent_Like_Post_Loop(randomAgent) {
-  responseLogger.log("agent_Like_Post_Loop");
+  //responseLogger.log("agent_Like_Post_Loop");
   mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }).then(async (req, res) => {
-    responseLogger.log("Successfully connected to the database");
+    //responseLogger.log("Successfully connected to the database");
     const databaseName = "";
 
     const today = new Date();
@@ -648,8 +648,8 @@ async function agent_Like_Post_Loop(randomAgent) {
     const agnts = await User.find({ username: randomAgent[username] })
     const agnt = agnts[0]
     const query = { "createdAt": { $lt: today, $gte: Ffth_before } };
-    responseLogger.log(agnt);
-    responseLogger.log(agnt._id);
+    //responseLogger.log(agnt);
+    //responseLogger.log(agnt._id);
     
     const result = await recommender.fetchAllPosts({"userId": await getFollowingsAndFollowers(agnt._id)});
     Post.find({"userId": await getFollowingsAndFollowers(agnt._id)}).sort({ rank: 1 }).limit(1).then(async (posts) => {
@@ -676,8 +676,8 @@ async function agent_Like_Post_Loop(randomAgent) {
                   }).then(function json(response) {
                       return response.json()
                     }).then((res) => {
-                      myLogger.log(res["statusText"]);
-                      myLogger.log(res)
+                      //myLogger.log(res["statusText"]);
+                      //myLogger.log(res)
                       if (res) {
                         //myLogger.log(res)
                         like_A_Post(agnt._id, post["_id"]);
@@ -810,22 +810,21 @@ async function agent_Generate_Post_Loop(randomAgent) {
           "topic": "Ukraine war"//"Ukraine war" 
       }
 
-        //myLogger.log(jsn);
+        myLogger.log(jsn);
 
         const jsonContent = JSON.stringify(jsn);
         myLogger.log(jsonContent);
 
         const agent_would_you_generate = async (jsonContent) => {
+          myLogger.log("agent_would_you_generate");
           await fetch(process.env.AGENTS_URL + "generate/", {
             method: "POST",
             path: '/generate',
             headers: { "Content-Type": "application/json", "Content-Type": "application/json;charset=UTF-8", "User-Agent": "node-fetch" },
             body: jsonContent,
-          })
-            .then(function json(response) {
+          }).then(function json(response) {
               return response.json()
-            })
-            .then((res) => {
+            }).then((res) => {
               ////myLogger.log(POST_ID_REPLY)
               ////myLogger.log(agnt._id)
               ////myLogger.log(agnt.username)
@@ -836,7 +835,7 @@ async function agent_Generate_Post_Loop(randomAgent) {
                 add_A_Post(res["response"], agnt.id);
               }
             }).catch((err) => {
-              //myLogger.log("err4");
+              myLogger.log("err4");
               myLogger.log(err);
             });
         };
@@ -861,7 +860,7 @@ async function agent_Generate_Post_Loop(randomAgent) {
 
 app.listen(port, function () {
   const myService1 = (randomAgent) => {
-    responseLogger.log("Bots Service 1 is running after 10 minutes.");
+    //responseLogger.log("Bots Service 1 is running after 10 minutes.");
     agent_Like_Post_Loop(randomAgent);
     serCount = serCount + 1;
     //myLogger.log(serCount);
@@ -890,7 +889,7 @@ app.listen(port, function () {
   
     var randomAgent = agents[getRandomInt(0, agents.length - 1)];
   
-    randAct = getRandomInt(0, 1)
+    randAct = getRandomInt(0, 3)
     responseLogger.log(`Random Action ${randAct}!`)
     if (randAct == 0){
       myService1(randomAgent);
@@ -906,7 +905,7 @@ app.listen(port, function () {
     
     }
   };
-  
+  //Run_A_Action()
   setInterval(Run_A_Action ,serDelayTime);
   responseLogger.log(`Scheduler app listening on port ${port}!`);
 

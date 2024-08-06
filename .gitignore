@@ -2,6 +2,8 @@
 /Schedular/node_modules/
 /node_modules
 .env
+/.env
+Twon-Simulations/.env
 node_modules
 networks.log
 Ranker.log
@@ -9,3 +11,5 @@ Schedular.log
 /networks.log
 /Ranker.log
 /Schedular.log
+Twon-Simulations/Schedular.log
+Twon-Simulations/Ranker.log

@@ -104,7 +104,7 @@ return arr
 }
 
 function getArrayOfValuesReposts(dict){
-  console.log(dict);
+  //console.log(dict);
   var arr = new Array();
   if(isEmpty(dict) == true){
     return dict
@@ -153,7 +153,7 @@ if(hasKey == true){ return arr} else { return dict;}
 }
 
 const getPostsRanking = async (jsonContent) => {
-
+  //console.log("getPostsRanking");
   await fetch(process.env.POST_RANKING_URL+ "rank/", { 
     method: "POST", 
     path: '/rank',
@@ -167,37 +167,37 @@ const getPostsRanking = async (jsonContent) => {
     var arrayOfObj = []
     var count = 0
   for (const [key, value] of Object.entries(json["ranking_map"])) {
-      console.log(key, value);
+      ////console.log(key, value);
       arrayOfObj[count] = {"_id": key, "update": value};
       count = count + 1
   }
-  console.log(arrayOfObj);
+  ////console.log(arrayOfObj);
 
   const updatePromises = arrayOfObj.map(({ _id, update }) => {
-    console.log(_id);  
-    console.log(update);  
+    ////console.log(_id);  
+//    //console.log(update);  
 
      Post.updateOne({ _id: _id }, {$set:{"rank": update}})
         .then((result) => {
-          console.log("SUCCES");
-      console.log(result);
+          ////console.log("SUCCES");
+      ////console.log(result);
   }).catch((err) => {
-    console.log("err");
-        console.log(err);
+    //console.log("err");
+        ////console.log(err);
   });
   
 
 });
   //array = Object.keys(json["ranking_map"]).map(function(k) {
-  //  console.log(k)
+  //  //console.log(k)
   //  return {k : {"rank": json["ranking_map"][k]}};
   //});
 
-  //console.log(array);
+  ////console.log(array);
 
   }).catch((error) => {
   // Your error is here!
-  console.log(error)
+  //console.log(error)
 
   });
 
@@ -207,17 +207,17 @@ const getPostsRanking = async (jsonContent) => {
 
 
 async function fetchAllPosts(ff_ids) {
-  console.log("connecting to the db");
+  ////console.log("connecting to the db");
   mongoose.connect(process.env.DB_URL,  {
     useNewUrlParser: true
     }).then(async(req, res) => {
 
-  console.log("Successfully connected to the database"); 
+  ////console.log("Successfully connected to the database"); 
 
   const databaseName = "hack1"; // Database name
   
-  const user2 = await User.find().sort({ createdAt: 'descending' }).exec();
-  const jsonContent2 = JSON.stringify(user2);
+  //const user2 = await User.find().sort({ createdAt: 'descending' }).exec();
+  //const jsonContent2 = JSON.stringify(user2);
   
   const post2 = await Post.find(ff_ids).populate([{path : "reposts",  model: "Repost",      select: "createdAt _id"},
                                             {path : "likes",    model: "PostLike",    select: "createdAt _id"}, 
@@ -227,7 +227,7 @@ async function fetchAllPosts(ff_ids) {
   const items = [];
   post2.forEach(function (item, index) {
     const dic = {};
-    console.log(item["reposts"])
+    ////console.log(item["reposts"])
     dic["comments"]  = filteredComments(getArrayOfValuesComments(item["comments"]));
     dic["reposts"]   = getArrayOfValuesReposts(item["reposts"]);
     dic["dislikes"]  = getArrayOfValuesDislikes(item["dislikes"]);
@@ -249,11 +249,11 @@ async function fetchAllPosts(ff_ids) {
   dic2["ranking_map"] =  { "additionalProp1": 0, "additionalProp2": 0, "additionalProp3": 0 }
 
   const jsonContent = JSON.stringify(dic2);
-  console.log(jsonContent);
+  ////console.log(jsonContent);
   getPostsRanking(jsonContent);
 
   }).catch(err => {
-  console.log('Could not connect to the database. Exiting now...', err);
+  //console.log('Could not connect to the database. Exiting now...', err);
   process.exit();
   });
 
@@ -267,14 +267,14 @@ app.get('/', function (req, res) {
 
 app.listen(port, function () {
 
-  console.log(`Recommender app listening on port ${port}!`);
+  //console.log(`Recommender app listening on port ${port}!`);
 
   const myService = () => {
     fetchAllPosts();
 };
 
-const delayInMilliseconds = 1 * 60 * 1000;
-setInterval(myService, delayInMilliseconds);
+//const delayInMilliseconds = 1 * 60 * 1000;
+//setInterval(myService, delayInMilliseconds);
 
 });
 
