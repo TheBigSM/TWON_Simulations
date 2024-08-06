@@ -1,0 +1,8 @@
+/TWON_networks/tw-sim/
+/Schedular/node_modules/
+/node_modules
+.env
+node_modules
+networks.log
+Ranker.log
+Schedular.log

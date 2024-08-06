@@ -19,7 +19,7 @@ This target installs the python dependencies for TWON_networks directory.
 ```sh
 make install_network
 ```
-This target installs the Node.js dependencies for both the Recommender and Schedular directories.
+This target installs the Node.js dependencies for both the Schedular and Recommender directories.
 ```sh
 make install_node
 ```
