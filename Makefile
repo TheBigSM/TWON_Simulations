@@ -5,8 +5,8 @@ install_network:
 # Target to install Node.js dependencies
 install_node:
 	@echo "Installing Node.js dependencies..."
-	cd Recommender && npm install
-	cd ../Schedular && npm install
+	cd Ranker && npm install
+	cd Schedular && npm install
 
 # Target to run networks.py 
 generate_networks:
@@ -15,11 +15,14 @@ generate_networks:
 
 # Target to run recommender.js and schedular.js together
 run_recommender_schedular:
+	#@node Ranker/recommender.js > Ranker.log 2>&1 &
 	@echo "Running recommender.js and schedular.js..."
-	(cd Recommender && node recommender.js) &
-	(cd Schedular && node Schedular.js) &
+	
+	@node Schedular/Schedular.js > Schedular.log 2>&1 &
+	@wait 
 
 # Target to install all dependencies
 install: install_network install_node
 
-all: install generate_networks run_recommender_schedular
+all: install   run_recommender_schedular
+#all: install generate_networks run_recommender_schedular

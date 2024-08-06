@@ -1,4 +1,6 @@
  const username = "username";
+ const persona = "persona";
+ 
  const liberal = "liberal";
  const conservative = "conservative"
  const neutral = "neutral"
@@ -30,5 +32,6 @@
  const gpt_4 = "gpt-4";
  const mistralai = "mistralai/Mistral-7B-Instruct-v0.2";
  const gemma_7b = "google/gemma-7b";
-
+ 
+ module.exports = {  username, liberal, mixtral_8_7b, conservative, neutral, agent1, agent2, agent3, agent4, agent5, agent6, agent7, agent8, agent9, agent10, agent11, agent12, agent13, agent14, agent15 };
 

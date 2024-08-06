@@ -6,7 +6,8 @@ import random
 import math
 import os
 from dotenv import load_dotenv
-database_url = os.getenv('DB_URL2')
+load_dotenv()
+database_url = os.getenv('DB_URL')
 
 
 def main( model : str ,num_of_users : int , m: int):
@@ -22,6 +23,8 @@ def main( model : str ,num_of_users : int , m: int):
         Return: None
     """
     ids, usernames, pics, passwords = get_data()
+    print(len(ids))
+    print(num_of_users)
     if num_of_users > min(len(ids), len(usernames), len(pics), len(passwords)): #If we want more users we can get.
         raise ValueError("Argument num_of_users is to big, we do not have that many users in the database.")
     
@@ -56,28 +59,32 @@ def get_data():
     Returns: (ids, usernames, profile_picture, passwords)
     """
 
-    myclient = pymongo.MongoClient(database_url)
-    db = myclient.networks
+    agentArray = ["Blaue Blume", "Dunkelschiefergrauer Löwe", "Orangefarbene Biene", "Grauer Adler", "Dunkelschiefergrauer Tiger", "Rosabraunes Lamm", "Grüne Seekuh", "Dunkelschiefergraue Kuh", "Orangefarbener Truthahn", "Silberner Blauhäher", "Grauer Koala", "Blauer Otter", "Lila Kaninchen", "Orangefarbener Feuerwehrmann", "Goldene Katze" ];
 
-    # Get list of IDs
-    cursor = db["idstorages"].find({}, {"_id": 1})
+
+    myclient = pymongo.MongoClient(database_url)
+    db = myclient.hack1
+    print(database_url)
+
+    # Get list of IDs for users in agentArray
+    cursor = db["selectedusers"].find({"username": {"$in": agentArray}}, {"_id": 1})
     ids = [doc["_id"] for doc in cursor]
     print("IDS:", len(ids))
 
-    # Get list of usernames
-    cursor = db["selectedusers"].find({}, {"username": 1, "profilePicture":1})
+    # Get list of usernames for users in agentArray
+    cursor = db["selectedusers"].find({"username": {"$in": agentArray}}, {"username": 1, "profilePicture": 1})
     usernames = [doc["username"] for doc in cursor]
-    print("username:", len(usernames))
+    print("Usernames:", len(usernames))
 
-    # Get list of pics
-    cursor = db["selectedusers"].find({}, {"profilePicture":1})
+    # Get list of profile pictures for users in agentArray
+    cursor = db["selectedusers"].find({"username": {"$in": agentArray}}, {"profilePicture": 1})
     pics = [doc["profilePicture"] for doc in cursor]
-    print("pics:", len(pics))
+    print("Profile Pictures:", len(pics))
 
-    #Get passwords
-    cursor = db["selectedusers"].find({}, {"password": 1})
+    # Get passwords for users in agentArray
+    cursor = db["selectedusers"].find({"username": {"$in": agentArray}}, {"password": 1})
     passwords = [doc['password'] for doc in cursor]
-    print("password", len(passwords))
+    print("Passwords:", len(passwords))
     
     return (ids, usernames, pics, passwords)
 
@@ -122,11 +129,11 @@ def send_data(ids, usernames, pics, passwords, graph):
     """
 
     myclient = pymongo.MongoClient(database_url)
-    db = myclient.networks
+    db = myclient.hack1
 
     #Randomly choose users to fill in network vertices
     LIST  = list(range(len(ids))) #This is list that counts all the users
-    DOC_NAME = 'users4'  #Name of file
+    DOC_NAME = 'users'  #Name of file
     num_of_vertices  = len(graph.vs['user_number'])
     choose_users = random.sample(LIST, num_of_vertices)
 
@@ -187,6 +194,6 @@ def send_data(ids, usernames, pics, passwords, graph):
         db[DOC_NAME].update_one(filter, type_of_action)
 
 
-main('StohasticBlockModel', 15, 5)
+main('StohasticBlockModel', 15, 2)
 
 #.env 

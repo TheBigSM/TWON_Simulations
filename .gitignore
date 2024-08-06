@@ -1,3 +1,6 @@
 .env
 /Schedular/node_modules/
 /Recommender/node_modules/
+Ranker.log
+Schedular.log
+networks.log
