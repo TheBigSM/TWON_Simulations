@@ -15,7 +15,7 @@ This project involves running a series of scripts written in Python and Node.js.
 
 The `Makefile` includes the following targets:
 
-This target installs the python dependencies for TWON_networks directory.
+This target installs the python dependencies for Networks directory.
 ```sh
 make install_network
 ```
@@ -23,7 +23,7 @@ This target installs the Node.js dependencies for both the Schedular and Recomme
 ```sh
 make install_node
 ```
-This target runs the Generate_Networks.py script located in the TWON_networks directory. The output is logged to networks.log.
+This target runs the Generate_Networks.py script located in the Networks directory. The output is logged to networks.log.
 ```sh
 make generate_networks
 ```

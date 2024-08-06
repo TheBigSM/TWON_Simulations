@@ -8,7 +8,7 @@ alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PA
 # Unset irrelevant variables.
 deactivate nondestructive
 
-setenv VIRTUAL_ENV "/home/adbuls/visualisation/Twon-Simulations/TWON_networks/myenv"
+setenv VIRTUAL_ENV "/home/adbuls/visualisation/Twon-Simulations/Networks/tw-sim"
 
 set _OLD_VIRTUAL_PATH="$PATH"
 setenv PATH "$VIRTUAL_ENV/bin:$PATH"
@@ -17,7 +17,7 @@ setenv PATH "$VIRTUAL_ENV/bin:$PATH"
 set _OLD_VIRTUAL_PROMPT="$prompt"
 
 if (! "$?VIRTUAL_ENV_DISABLE_PROMPT") then
-    set prompt = "(myenv) $prompt"
+    set prompt = "(tw-sim) $prompt"
 endif
 
 alias pydoc python -m pydoc

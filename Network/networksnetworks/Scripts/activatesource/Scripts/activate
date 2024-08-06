@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\uka\Documents\git\IJS\TWON_networks\networksnetworks\Scripts\activatesource"
+VIRTUAL_ENV="C:\Users\uka\Documents\git\IJS\Networks\networksnetworks\Scripts\activatesource"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

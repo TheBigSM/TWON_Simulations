@@ -29,7 +29,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/adbuls/visualisation/Twon-Simulations/TWON_networks/tw-sim"
+set -gx VIRTUAL_ENV "/home/adbuls/visualisation/Twon-Simulations/Networks/tw-sim"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

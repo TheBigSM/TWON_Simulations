@@ -1,6 +1,6 @@
 install_network:
 	@echo "Installing Python dependencies..."
-	cd TWON_networks && pip install -r requirements.txt
+	cd Networks && pip install -r requirements.txt
 
 # Target to install Node.js dependencies
 install_node:
@@ -11,7 +11,7 @@ install_node:
 # Target to run networks.py 
 generate_networks:
 	@echo "Running networks.py..."
-	python TWON_networks/Generate_Networks.py > networks.log 2>&1
+	python Networks/Generate_Networks.py > networks.log 2>&1
 
 # Target to run recommender.js and schedular.js together
 run_recommender_schedular:
