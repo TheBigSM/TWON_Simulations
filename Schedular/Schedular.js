@@ -22,6 +22,9 @@ const serDelayTime = 15000;//0.5 * 60 * 1000;//3*60*1000;
 const agentDelayTime = 0.4 * 60 * 1000;//4*60*1000;
 const genDelayTime = 2 * 60 * 1000;//20*60*1000;
 var serCount = 0
+const connectDB = require('./db.js');
+const io = require('socket.io-client');
+const socket = io('http://localhost:3000');
 
 const { persona, username, liberal, mistral_7b, mixtral_8_7b, conservative, neutral, agent1, agent2, agent3, agent4, agent5, agent6, agent7, agent8, agent9, agent10, agent11, agent12, agent13, agent14, agent15 } = require('./Constants.js');
 var agents = [{ username: agent1, persona: liberal }, { username: agent2, persona: conservative }, { username: agent3, persona: neutral },
@@ -30,7 +33,7 @@ var agents = [{ username: agent1, persona: liberal }, { username: agent2, person
 { username: agent10, persona: liberal }, { username: agent11, persona: conservative }, { username: agent12, persona: neutral },
 { username: agent13, persona: liberal }, { username: agent14, persona: conservative }, { username: agent15, persona: neutral },
 ]
-model = "mistral:7b-instruct-v0.2-q6_K";
+model = "mistral:7b-instruct-v0.2-q6_K";//"gpt-3.5-turbo";//"gpt-4";// "mistral:7b-instruct-v0.2-q6_K";
 
 
 const myLogger = (function() {
@@ -84,8 +87,6 @@ function clean(obj) {
   return obj
 }
 
-
-
 removeUndefined = function (json) {
   return JSON.parse(JSON.stringify(json, (k, v) => Array.isArray(v) ? v.filter(e => e !== null) : v, 2));
 }
@@ -131,8 +132,6 @@ async function add_As_Read(txt, userId) {
   }
 }
 
-
-
 async function add_A_Comment(txt, userId, postId, username) {
   if (txt.length > 0) {
     const comment = new Comment({ body: txt, userId: userId, postId: postId, username: username });
@@ -161,6 +160,8 @@ async function getFollowingsAndFollowers(agentUserId) {
     // Get the list of followings and followers
     const followings = user.followings;
     const followers = user.followers;
+    responseLogger.log(followings);
+    responseLogger.log(followers);
 
     // Combine followings and followers into a single array
     const combinedUsers = [...followings, ...followers];
@@ -561,24 +562,32 @@ function getRandomInt(min, max) {
 
 
 async function agent_Like_Comment_Loop(randomAgent) {
+  try {
   responseLogger.log("agent_Like_Comment_Loop");
-  mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }).then(async (req, res) => {
-    //myLogger.log("Successfully connected to the database");
-    const databaseName = "hack1";
     const today = new Date();
     const Ffth_before = new Date();
     Ffth_before.setDate(today.getDate() - 30);
     Ffth_before.setHours(0, 0, 0, 0);
     
-    const agnts = await User.find({ username: randomAgent[username] })
-    const agnt = agnts[0]
+    responseLogger.log(randomAgent);
+    responseLogger.log(username);
+    responseLogger.log( randomAgent[username]);
+    const agnts = await User.find({ "username": randomAgent["username"] }) 
+    const agnt = Array.isArray(agnts) ? agnts[0] : agnts;
 
-    const query = { "createdAt": { $lt: today, $gte: Ffth_before } };
+    //const query = { "createdAt": { $lt: today, $gte: Ffth_before } };
     responseLogger.log(agnt);
     responseLogger.log(agnt._id);
+    const allfofo = await getFollowingsAndFollowers(agnt._id);
     
-    const result = await recommender.fetchAllPosts({"userId": await getFollowingsAndFollowers(agnt._id)});
-    Comment.find({ userId: { $in: await getFollowingsAndFollowers(agnt._id) }, "createdAt": { $lt: today, $gte: Ffth_before }}).sort({ updatedAt: 1 }).limit(1).then(async (comments) => {
+    const result = await recommender.fetchAllPosts({"userId": allfofo});
+    responseLogger.log("result");
+    responseLogger.log(result);
+    
+    const comments = await Comment.find({ userId: { $in: allfofo }, "createdAt": { $lt: today, $gte: Ffth_before }})
+        .sort({ updatedAt: -1 })
+        .limit(1);
+      
       var count = 0;
       for (const comm in comments) {
         //myLogger.log(count + 1);
@@ -589,8 +598,8 @@ async function agent_Like_Comment_Loop(randomAgent) {
         const p = await Post.find({ "_id": new ObjectId(comment["postId"]) })
         const pst = p[0];
         
-        const agnts = await User.find({ username: randomAgent[username]})
-        const agnt = agnts[0];
+        const agnts = await User.find({ username: randomAgent["username"]})
+        const agnt = Array.isArray(agnts) ? agnts[0] : agnts;;
 
                   //myLogger.log("AGENT");
                   //myLogger.log(agent_count + 1);
@@ -601,58 +610,52 @@ async function agent_Like_Comment_Loop(randomAgent) {
                     "post": msg, "history": { interactions }, "integration": { "model": model, "provider": "local" },
                     "language": "English", persona: [randomAgent["persona"]], "platform": "Twitter"
                   }
-                  await delay(2000);
                   const jsonContent = JSON.stringify(jsn);
-                  const agent_would_you_like = async (jsonContent) => {
-                    await fetch(process.env.AGENTS_URL + "like/", {
+                  const res = await fetch(process.env.AGENTS_URL + "like/", {
                       method: "POST",
                       path: '/like',
                       headers: { "Content-Type": "application/json", "Content-Type": "application/json;charset=UTF-8", "User-Agent": "node-fetch" },
                       body: jsonContent,
-                    })
-                      .then(function json(response) {
-                        return response.json()
-                      })
-                      .then((res) => {
-                        //myLogger.log("Comment -like - response ****");
-                        myLogger.log(res);
-                        if (res) {
+                    }).then(response => response.json());
+                    responseLogger.log(res);
+                    if (res.response) {
                           like_A_Comment(agnt._id, comment["_id"]);
                         }
-                      }).catch((err) => {
-                        //myLogger.log("err1");
-                        //myLogger.log(err);
-
-                      });
-                  };
-                  agent_would_you_like(jsonContent);
-                }
-    });
-
-  }).catch(err => {
-    //myLogger.log('Could not connect to the database. Exiting now...', err);
-    process.exit();
-  });
-};
+                      }
+                    } catch (err) {
+                      responseLogger.log("Error in agent_Like_Comment_Loop:", err);
+                    }
+                  }
 
 async function agent_Like_Post_Loop(randomAgent) {
-  //responseLogger.log("agent_Like_Post_Loop");
-  mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }).then(async (req, res) => {
-    //responseLogger.log("Successfully connected to the database");
+  try {
+  responseLogger.log("agent_Like_Post_Loop");
     const databaseName = "";
 
     const today = new Date();
     const Ffth_before = new Date();
     Ffth_before.setDate(today.getDate() - 30);
     Ffth_before.setHours(0, 0, 0, 0);
-    const agnts = await User.find({ username: randomAgent[username] })
-    const agnt = agnts[0]
-    const query = { "createdAt": { $lt: today, $gte: Ffth_before } };
-    //responseLogger.log(agnt);
-    //responseLogger.log(agnt._id);
+    responseLogger.log(randomAgent);
+    responseLogger.log(username);
+    responseLogger.log( randomAgent[username]);
+    const agnts = await User.find({ username: randomAgent["username"] })
+    const agnt = Array.isArray(agnts) ? agnts[0] : agnts;
+    //const query = { "createdAt": { $lt: today, $gte: Ffth_before } };
+    responseLogger.log(agnt);
+    responseLogger.log(agnt._id);
     
-    const result = await recommender.fetchAllPosts({"userId": await getFollowingsAndFollowers(agnt._id)});
-    Post.find({"userId": await getFollowingsAndFollowers(agnt._id)}).sort({ rank: 1 }).limit(1).then(async (posts) => {
+    const allfofo = await getFollowingsAndFollowers(agnt._id);
+    responseLogger.log(allfofo);
+    const result = await recommender.fetchAllPosts({"userId": allfofo});
+    responseLogger.log("result");
+    responseLogger.log(result);
+    
+    const posts = await Post.find({"userId":allfofo})
+        .populate({ path: "comments", model: "Comment" })
+        .sort({ rank: -1 })
+        .limit(1);
+
       var count = 0;
       for (const p in posts) {
         const post = posts[p]
@@ -664,127 +667,89 @@ async function agent_Like_Post_Loop(randomAgent) {
                   "language": "English", persona: [randomAgent["persona"]], "platform": "Twitter"
         }
                  //myLogger.log(jsn)
-                const jsonContent = JSON.stringify(jsn);
-                ////myLogger.log(jsonContent);
-                const agent_would_you_like = async (jsonContent) => {
-
-                  await fetch(process.env.AGENTS_URL + "like/", {
+                const jsonContent = JSON.stringify(jsn); 
+                const res = await fetch(process.env.AGENTS_URL + "like/", {
                     method: "POST",
                     path: '/like',
                     headers: { "Content-Type": "application/json", "Content-Type": "application/json;charset=UTF-8", "User-Agent": "node-fetch" },
                     body: jsonContent,
-                  }).then(function json(response) {
-                      return response.json()
-                    }).then((res) => {
-                      //myLogger.log(res["statusText"]);
-                      //myLogger.log(res)
-                      if (res) {
-                        //myLogger.log(res)
+                }).then(response => response.json());
+              responseLogger.log(res);
+              if (res.response) {
                         like_A_Post(agnt._id, post["_id"]);
                       }
-                    }).catch((err) => {
-                      //myLogger.log("err2");
-                      //myLogger.log(err);
+                    }
+                  } catch (err) {
+                    responseLogger.log("Error in agent_Generate_Post_Loop:", err);
+                  }
+                }
 
-                    });
-                };
-                agent_would_you_like(jsonContent);
-                //await delay(agentDelayTime);
-                //await pauseFor(agentDelayTime);
-              }
-    });
-  }).catch(err => {
-    //myLogger.log('Could not connect to the database. Exiting now...', err);
-    process.exit();
-  });
-};
 
 async function agent_Reply_Comment_Loop(randomAgent) {
-  responseLogger.log("agent_Reply_Comment_Loop");
-  mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }).then(async (req, res) => {
-    //myLogger.log("Successfully connected to the database");
-    const databaseName = "hack1";
+  try {
+    responseLogger.log("agent_Reply_Comment_Loop");
 
     const today = new Date();
     const Ffth_before = new Date();
     Ffth_before.setDate(today.getDate() - 60);
     Ffth_before.setHours(0, 0, 0, 0);
-    ////myLogger.log(today)
-    ////myLogger.log(Ffth_before)
-    const agnts = await User.find({ username: randomAgent[username]})
-    const agnt = agnts[0];
-    responseLogger.log(agnt);
-    responseLogger.log(agnt._id);
     
-    const result = await recommender.fetchAllPosts({"userId": await getFollowingsAndFollowers(agnt._id)});
-    const query = { "createdAt": { $lt: today, $gte: Ffth_before }, "comments": { $exists: true, $ne: [] } };
-    Post.find({"userId": await getFollowingsAndFollowers(agnt._id)}).populate({ path: "comments", model: "Comment" }).sort({ rank: 1 }).limit(1).then(async (posts) => {
-      var count = 0;
-      //myLogger.log(posts.length);
-      for(const p in posts) {
-        //myLogger.log("POST");
-        //myLogger.log(count + 1);
-        const post = posts[p]
-        const u = await User.find({ "_id": new ObjectId(post["userId"]) })
-        const usr = u[0];
+    responseLogger.log(randomAgent);
+    responseLogger.log(username);
+    responseLogger.log( randomAgent[username]);
 
-          const agnts = await User.find({ username: randomAgent[username] })
-          const agnt = agnts[0]
-                const interactions = await get_Interactions_Agent_on_Comments(agnt);
-                const interact = await get_thread_Agent_on_Comments(agnt);
+    const agnts = await User.find({ username: randomAgent[username] })
+    const agnt = Array.isArray(agnts) ? agnts[0] : agnts;
+    
+    if (agnt) {
+      const posts = await Post.find()
+        .populate({ path: "comments", model: "Comment" })
+        .sort({ rank: -1 })
+        .limit(1);
 
-                jsn = {
-                  "history": { interactions },
-                  "integration": { "model": model, "provider": "local" },
-                  "language": "English",
-                  "length": "few-word",
-                  persona: [randomAgent["persona"]],
-                  "platform": "Twitter",
-                  "thread": interact
-                }
+      for (const post of posts) {
+        const user = await User.findById(post.userId);
+        
+        const interactions = await get_Interactions_Agent_on_Comments(agnt);
+        const interact = await get_thread_Agent_on_Comments(agnt);
 
-                //myLogger.log(jsn);
+        const jsn = {
+          "history": { interactions },
+          "integration": { "model": model, "provider": "local" },
+          "language": "English",
+          "length": "few-word",
+          persona: [randomAgent.persona],
+          "platform": "Twitter",
+          "thread": interact
+        };
 
-                const jsonContent = JSON.stringify(jsn);
-                //myLogger.log(jsonContent);
-                const agent_would_you_reply = async (jsonContent) => {
-                  await fetch(process.env.AGENTS_URL + "reply/", {
-                    method: "POST",
-                    path: '/reply',
-                    headers: { "Content-Type": "application/json", "Content-Type": "application/json;charset=UTF-8", "User-Agent": "node-fetch", 'accept': 'application/json' },
-                    body: jsonContent,
-                  })
-                    .then(function json(response) {
-                      return response.json()
-                    })
-                    .then((res) => {
-                      //myLogger.log(res["status"]);
-                      myLogger.log(res);
-                      myLogger.log(res["response"]);
-                      if (res["response"]) {
-                        add_A_Comment(res["response"], agnt.id, POST_ID_REPLY, agnt.username);
-                      }
-                    }).catch((err) => {
-                      //myLogger.log("err3");
-                      //myLogger.log(err);
-                    });
-                };
-                agent_would_you_reply(jsonContent);
+        const jsonContent = JSON.stringify(jsn);
+        responseLogger.log(jsonContent);
+
+        const res = await fetch(process.env.AGENTS_URL + "reply/", {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json;charset=UTF-8", 
+            "User-Agent": "node-fetch",
+            "accept": "application/json"
+          },
+          body: jsonContent,
+        }).then(response => response.json());
+
+        responseLogger.log(res);
+        if (res.response) {
+          await add_A_Comment(res.response, agnt.id, POST_ID_REPLY, agnt.username);
         }
-        // }
-        count = count + 1
-    });
-
-  }).catch(err => {
-    //myLogger.log('Could not connect to the database. Exiting now...', err);
-    process.exit();
-  });
-};
+      }
+    }
+  } catch (err) {
+    responseLogger.log("Error in agent_Reply_Comment_Loop:", err);
+  }
+}
 
 async function agent_Generate_Post_Loop(randomAgent) {
+  try {
   responseLogger.log("agent_Generate_Post_Loop");
-  mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }).then(async (req, res) => {
-    //myLogger.log("Successfully connected to the database");
     const today = new Date();
     const Ffth_before = new Date();
     Ffth_before.setDate(today.getDate() - 60);
@@ -792,13 +757,22 @@ async function agent_Generate_Post_Loop(randomAgent) {
     ////myLogger.log(today)
     ////myLogger.log(Ffth_before)
     var agent_count = 0;
+    
+    responseLogger.log(randomAgent);
+    responseLogger.log(username);
+    responseLogger.log(randomAgent[username]);
+    
     const agnts = await User.find({ username: randomAgent[username] })
-    const agnt = agnts[0]
+    const agnt = Array.isArray(agnts) ? agnts[0] : agnts;
     if (agnt) {
-    responseLogger.log(agnt);
+      responseLogger.log(agnt);
       responseLogger.log(agnt._id);
       
-      const result = await recommender.fetchAllPosts({"userId": await getFollowingsAndFollowers(agnt._id)});
+      const allfofo = await getFollowingsAndFollowers(agnt._id);
+      
+      const result = await recommender.fetchAllPosts({"userId": allfofo});
+      responseLogger.log("result");
+      responseLogger.log(result);
       const interactions = await get_Interactions_Agent_on_Comments(agnt);
 
       jsn = {
@@ -810,52 +784,28 @@ async function agent_Generate_Post_Loop(randomAgent) {
           "topic": "Ukraine war"//"Ukraine war" 
       }
 
-        myLogger.log(jsn);
+      responseLogger.log(jsn);
 
         const jsonContent = JSON.stringify(jsn);
-        myLogger.log(jsonContent);
+        responseLogger.log(jsonContent);
+        responseLogger.log(process.env.AGENTS_URL);
 
-        const agent_would_you_generate = async (jsonContent) => {
-          myLogger.log("agent_would_you_generate");
-          await fetch(process.env.AGENTS_URL + "generate/", {
+        const res = await fetch(process.env.AGENTS_URL + "generate/", {
             method: "POST",
             path: '/generate',
             headers: { "Content-Type": "application/json", "Content-Type": "application/json;charset=UTF-8", "User-Agent": "node-fetch" },
             body: jsonContent,
-          }).then(function json(response) {
-              return response.json()
-            }).then((res) => {
-              ////myLogger.log(POST_ID_REPLY)
-              ////myLogger.log(agnt._id)
-              ////myLogger.log(agnt.username)
-              //myLogger.log(res["status"]);
-              myLogger.log(res);
-              myLogger.log(res["response"]);
-              if (res["response"]) {
+        }).then(response => response.json());
+              responseLogger.log("res");
+              responseLogger.log(res);
+              if (res.response) {
                 add_A_Post(res["response"], agnt.id);
               }
-            }).catch((err) => {
-              myLogger.log("err4");
-              myLogger.log(err);
-            });
-        };
-        agent_would_you_generate(jsonContent);
-        //await delay(agentDelayTime);
-        //await pauseFor(agentDelayTime);
-        //setTimeout(delayedFunction, 100000);
-
-        // }
-        // }
-
-        //}
+          }
+        } catch (err) {
+          responseLogger.log("Error in agent_Generate_Post_Loop:", err);
+        }
       }
-      agent_count = agent_count + 1
-
-  }).catch(err => {
-    //myLogger.log('Could not connect to the database. Exiting now...', err);
-    process.exit();
-  });
-};
 
 
 app.listen(port, function () {
@@ -879,34 +829,68 @@ app.listen(port, function () {
   };
   const myService4 = (randomAgent) => {
     responseLogger.log("Bots Service 4 is running after 10 minutes.");
+    responseLogger.log(randomAgent);
     agent_Generate_Post_Loop(randomAgent);
     serCount = serCount + 1;
     //myLogger.log(serCount);
   };
+  
 
   //myService4();
-  const Run_A_Action = () => {
-  
-    var randomAgent = agents[getRandomInt(0, agents.length - 1)];
-  
-    randAct = getRandomInt(0, 3)
-    responseLogger.log(`Random Action ${randAct}!`)
-    if (randAct == 0){
-      myService1(randomAgent);
-    
-    } else if(randAct== 1){ 
-      myService2(randomAgent);
-    
-    } else if(randAct== 2){ 
-      myService3(randomAgent);
-    
-    } else if(randAct== 3){ 
-      myService4(randomAgent);
-    
-    }
-  };
+
   //Run_A_Action()
-  setInterval(Run_A_Action ,serDelayTime);
+  //setInterval(Run_A_Action ,serDelayTime);
+  //responseLogger.log(`Scheduler app listening on port ${port}!`);
+
+  connectDB().then(() => {
+    console.log('MongoDB connected successfully');
+    
+  
+    const Run_A_Action = async () => {
+      try {
+        for (let i = 0; i < 1000; i++) {
+        
+            var con = getRandomInt(0, agents.length)
+            var randomAgent = agents[con];
+    
+            randAct = getRandomInt(0, 3)
+            responseLogger.log(`Action ${i}!`)
+            responseLogger.log(`Random Action ${randAct}!`)
+            responseLogger.log(`con ${con}!`)
+            responseLogger.log(`randomAgent ${randomAgent}!`)
+            
+            if (randAct == 0){
+              await agent_Like_Post_Loop(randomAgent);
+   
+      
+            } else if(randAct== 1){ 
+              await agent_Like_Comment_Loop(randomAgent);
+        
+      
+            } else if(randAct== 2){ 
+              await agent_Reply_Comment_Loop(randomAgent);
+         
+      
+            } else if(randAct== 3){ 
+              responseLogger.log(randomAgent);
+              await agent_Generate_Post_Loop(randomAgent);
+         
+      
+            }
+      }
+    } catch (error) {
+      responseLogger.log(`Scheduler app Error ${error}!`);
+    }
+    };
+  
+  //setInterval(Run_A_Action ,serDelayTime);
+  Run_A_Action()
   responseLogger.log(`Scheduler app listening on port ${port}!`);
+  
+}).catch(err => {
+  console.error('Failed to connect to MongoDB', err);
+  process.exit(1); // Exit if the connection fails
+});
+
 
 });

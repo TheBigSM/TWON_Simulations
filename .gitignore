@@ -1,5 +1,7 @@
 /Networks/tw-sim/
 /Schedular/node_modules/
+/Schedular/CaseStudy.js/
+/Schedular/CaseStudy/
 /node_modules
 .env
 /.env

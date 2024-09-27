@@ -13,12 +13,24 @@ const User = require('./Models/User.js');
 const Viewpost = require('./Models/Viewpost.js');
 const mongoose = require('mongoose');
 var express = require('express');
+const connectDB = require('./db.js');
 require('dotenv').config();
 
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 mongoose.Promise = global.Promise;
 const { exec } = require('child_process');
+
+const responseLogger = (function() {
+  function log(...args) {
+      const timestamp = new Date().toISOString();
+      console.log(`[responseLogger ${timestamp}]`, ...args);
+  }
+
+  return {
+      log
+  };
+})();
 
 const hostname = '127.0.0.1';
 const port = 3009;
@@ -156,7 +168,7 @@ const getPostsRanking = async (jsonContent) => {
   //console.log("getPostsRanking");
   await fetch(process.env.POST_RANKING_URL+ "rank/", { 
     method: "POST", 
-    path: '/rank',
+    path: '/rank/',
     headers: {"Content-Type": "application/json", "Content-Length": jsonContent.length, "User-Agent": "node-fetch"},
     body: jsonContent,
   }).then((response) => {
@@ -208,17 +220,19 @@ const getPostsRanking = async (jsonContent) => {
 
 async function fetchAllPosts(ff_ids) {
   ////console.log("connecting to the db");
+  responseLogger.log("connecting to the db");
+  responseLogger.log(process.env.DB_URL);
   mongoose.connect(process.env.DB_URL,  {
     useNewUrlParser: true
     }).then(async(req, res) => {
 
   ////console.log("Successfully connected to the database"); 
 
-  const databaseName = "hack1"; // Database name
+  const databaseName = "casestudy4"; // Database name
   
   //const user2 = await User.find().sort({ createdAt: 'descending' }).exec();
   //const jsonContent2 = JSON.stringify(user2);
-  
+  responseLogger.log(ff_ids);
   const post2 = await Post.find(ff_ids).populate([{path : "reposts",  model: "Repost",      select: "createdAt _id"},
                                             {path : "likes",    model: "PostLike",    select: "createdAt _id"}, 
                                             {path : "dislikes", model: "PostDislike", select: "createdAt _id"}, 
@@ -240,20 +254,21 @@ async function fetchAllPosts(ff_ids) {
 
   const dic2 = {};
   dic2["items"]  = items;
+  dic2["mode"]  = "ranked";
   dic2["reference_datetime"]  = datetime;
   dic2["reference_datetime"]  = datetime;
   dic2["decay"]  = { "minimum": 0.2, "reference_timedelta": "P3D"} 
   dic2["noise"]  = { "low": 0.6, "high": 1.4}
   dic2["engagement"]  = {"func": "count_based", "log_normalize": false }
-  dic2["weights"]  =  { "likes": 1.0, "dislikes": 1.0, "comments": 1.0, "comments_likes": 1.0, "comments_dislikes": 1.0} 
+  dic2["weights"]  =  { "likes": 1.0, "dislikes": 1.0, "reposts":1.0, "comments": 1.0, "comments_likes": 1.0, "comments_dislikes": 1.0} 
   dic2["ranking_map"] =  { "additionalProp1": 0, "additionalProp2": 0, "additionalProp3": 0 }
 
   const jsonContent = JSON.stringify(dic2);
-  ////console.log(jsonContent);
-  getPostsRanking(jsonContent);
+  console.log(jsonContent);
+  return(getPostsRanking(jsonContent));
 
   }).catch(err => {
-  //console.log('Could not connect to the database. Exiting now...', err);
+  responseLogger.log('Could not connect to the database. Exiting now...', err);
   process.exit();
   });
 
@@ -273,8 +288,8 @@ app.listen(port, function () {
     fetchAllPosts();
 };
 
-//const delayInMilliseconds = 1 * 60 * 1000;
-//setInterval(myService, delayInMilliseconds);
+const delayInMilliseconds = 1 * 60 * 1000;
+setInterval(myService, delayInMilliseconds);
 
 });
 
