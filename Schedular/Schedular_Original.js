@@ -72,7 +72,6 @@ function pauseFor(duration) {
   return new Promise(resolve => setTimeout(resolve, duration));
 }
 
-const port = 3008;
 
 function isEmpty(obj) {
   if (obj === undefined) { return true }
@@ -815,7 +814,7 @@ async function agent_Generate_Post_Loop(randomAgent) {
       }
 
 
-app.listen(port, function () {
+app.listen(process.env.network_port, function () {
   const myService1 = (randomAgent) => {
     //responseLogger.log("Bots Service 1 is running after 10 minutes.");
     agent_Like_Post_Loop(randomAgent);
@@ -895,7 +894,7 @@ app.listen(port, function () {
   
   //setInterval(Run_A_Action ,serDelayTime);
   Run_A_Action()
-  responseLogger.log(`Scheduler app listening on port ${port}!`);
+  responseLogger.log(`Scheduler app listening on port ${process.env.network_port}!`);
   
 }).catch(err => {
   console.error('Failed to connect to MongoDB', err);

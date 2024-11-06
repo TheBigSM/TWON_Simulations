@@ -1,0 +1,4 @@
+#!/home/matejas/Twon-Simulations-1/myenv/bin/python
+"""Small script to execute the igraph command line interface"""
+from igraph.app.shell import main
+main()

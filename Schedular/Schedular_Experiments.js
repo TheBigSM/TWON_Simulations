@@ -369,7 +369,6 @@ function pauseFor(duration) {
   return new Promise(resolve => setTimeout(resolve, duration));
 }
 
-const port = 3008;
 
 function isEmpty(obj) {
   if (obj === undefined) { return true }
@@ -1313,7 +1312,7 @@ function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-app.listen(port, function () {
+app.listen(process.env.network_port, function () {
   const myService1 = async (randomAgent) => {
     //responseLogger.log("Bots Service 1 is running after 10 minutes.");
     await agent_Like_Post_Loop(randomAgent);
@@ -1405,7 +1404,7 @@ app.listen(port, function () {
     
   Run_A_Action()
   //setInterval(Run_A_Action ,serDelayTime);
-  responseLogger.log(`Scheduler app listening on port ${port}!`);
+  responseLogger.log(`Scheduler app listening on port ${process.env.network_port}!`);
   //process.exit(1); 
   
 }).catch(err => {

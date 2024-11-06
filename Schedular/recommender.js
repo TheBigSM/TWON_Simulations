@@ -33,7 +33,6 @@ const responseLogger = (function() {
 })();
 
 const hostname = '127.0.0.1';
-const port = 3009;
 
 function isEmpty(obj) {
   if(obj === undefined){ return true}
@@ -280,7 +279,7 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-app.listen(port, function () {
+app.listen(process.env.network_port_2, function () {
 
   //console.log(`Recommender app listening on port ${port}!`);
 

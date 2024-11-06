@@ -131,6 +131,8 @@ def generate_network(model, num_of_vertices, m):
         import numpy as np
         sizes = [math.floor(num_of_vertices/2), math.ceil(num_of_vertices/2) ]
         prob_matrix = np.array([[0.1 * m, 0.02 * m], [0.02 * m, 0.1 * m]])
+        # Convert prob_matrix to a list
+        prob_matrix = prob_matrix.tolist()
         graph = ig.Graph.SBM(sum(sizes), prob_matrix, sizes, directed=True)
         graph.vs['user_number'] = list(range(num_of_vertices))
         output_directory = "home/adbuls/visulations/Twon-Simulations/Networks/"  # Change to your desired directory
