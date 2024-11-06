@@ -112,7 +112,7 @@ def generate_network(model, num_of_vertices, m):
     if model == "Barabasi":
         ba_graph = ig.Graph.Barabasi(n=num_of_vertices, m=3, directed=True) # Generate a Barabási-Albert Graph
         ba_graph.vs['user_number'] = list(range(num_of_vertices))
-        output_directory = "home/adbuls/visulations/Twon-Simulations/Networks/"  # Change to your desired directory
+        output_directory = "./Networks/"  # Change to your desired directory
         output_file_name = "barabasi_albert_graph.png"
 
         # Make sure the directory exists, if not create it
