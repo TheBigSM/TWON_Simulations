@@ -228,7 +228,7 @@ async function fetchAllPosts(ff_ids) {
 
   ////console.log("Successfully connected to the database"); 
 
-  const databaseName = "casestudy4"; // Database name
+  const databaseName = "ms1"; // Database name
   
   //const user2 = await User.find().sort({ createdAt: 'descending' }).exec();
   //const jsonContent2 = JSON.stringify(user2);

@@ -23,16 +23,316 @@ const genDelayTime = 2 * 60 * 1000;//20*60*1000;
 var serCount = 0
 const connectDB = require('./db.js');
 
-const { persona, username, liberal, mistral_7b, mixtral_8_7b, conservative, neutral, agent1, agent2, agent3, agent4, agent5, agent6, agent7, agent8, agent9, agent10, agent11, agent12, agent13, agent14, agent15 } = require('./Constants.js');
-var agents = [{ username: agent1, persona: liberal }, { username: agent2, persona: conservative }, { username: agent3, persona: neutral },
-{ username: agent4, persona: liberal }, { username: agent5, persona: conservative }, { username: agent6, persona: neutral },
-{ username: agent7, persona: liberal }, { username: agent8, persona: conservative }, { username: agent9, persona: neutral },
-{ username: agent10, persona: liberal }, { username: agent11, persona: conservative }, { username: agent12, persona: neutral },
-{ username: agent13, persona: liberal }, { username: agent14, persona: conservative }, { username: agent15, persona: neutral },
+const { persona, username, liberal, mistral_7b, mixtral_8_7b, conservative, neutral, agent1, agent2, agent3, agent4, agent5, agent6, agent7, agent8, agent9, agent10, agent11, agent12, agent13, agent14, agent15, agent16, agent17, agent18, agent19, agent20, agent21, agent22, agent23, agent24, agent25, 
+agent26, agent27, agent28, agent29, agent30, agent31, agent32, agent33, agent34, agent35,
+agent36, agent37, agent38, agent39, agent40, agent41, agent42, agent43, agent44, agent45,
+agent46, agent47, agent48, agent49, agent50, agent51, agent52, agent53, agent54, agent55,
+agent56, agent57, agent58, agent59, agent60, agent61, agent62, agent63, agent64, agent65,
+agent66, agent67, agent68, agent69, agent70, agent71, agent72, agent73, agent74, agent75,
+agent76, agent77, agent78, agent79, agent80, agent81, agent82, agent83, agent84, agent85,
+agent86, agent87, agent88, agent89, agent90, agent91, agent92, agent93, agent94, agent95,
+agent96, agent97, agent98, agent99, agent100, agent101, agent102, agent103, agent104, agent105,
+agent106, agent107, agent108, agent109, agent110, agent111, agent112, agent113, agent114, agent115,
+agent116, agent117, agent118, agent119, agent120, agent121, agent122, agent123, agent124, agent125,
+agent126, agent127, agent128, agent129, agent130, agent131, agent132, agent133, agent134, agent135,
+agent136, agent137, agent138, agent139, agent140, agent141, agent142, agent143, agent144, agent145,
+agent146, agent147, agent148, agent149, agent150, agent151, agent152, agent153, agent154, agent155,
+agent156, agent157, agent158, agent159, agent160, agent161, agent162, agent163, agent164, agent165,
+agent166, agent167, agent168, agent169, agent170, agent171, agent172, agent173, agent174, agent175,
+agent176, agent177, agent178, agent179, agent180, agent181, agent182, agent183, agent184, agent185,
+agent186, agent187, agent188, agent189, agent190, agent191, agent192, agent193, agent194, agent195,
+agent196, agent197, agent198, agent199, agent200, agent201, agent202, agent203, agent204, agent205,
+agent206, agent207, agent208, agent209, agent210, agent211, agent212, agent213, agent214, agent215,
+agent216, agent217, agent218, agent219, agent220, agent221, agent222, agent223, agent224, agent225,
+agent226, agent227, agent228, agent229, agent230, agent231, agent232, agent233, agent234, agent235,
+agent236, agent237, agent238, agent239, agent240, agent241, agent242, agent243, agent244, agent245,
+agent246, agent247, agent248, agent249, agent250, agent251, agent252, agent253, agent254, agent255,
+agent256, agent257, agent258, agent259} = require('./Constants.js');
+/*var agents = [
+{ username: agent1, persona: "academic_writer" }, 
+{ username: agent2, persona: "science_journalist2" }, 
+{ username: agent3, persona: "academic_communications" },
+{ username: agent4, persona: "academic_researcher" }, 
+{ username: agent5, persona: "science_journalist"}, 
+{ username: agent6, persona: "science_communicator" },
+{ username: agent7, persona: "science_editor" }, 
+{ username: agent8, persona: "science_writer"}, 
+{ username: agent9, persona: "journalist"},
+{ username: agent10, persona: "science_journalist3"}, 
+{ username: agent11, persona: "science_news_aggregator"}, 
+{ username: agent12, persona: "environmental_journalist"},
+{ username: agent13, persona: "science_communications_specialist"}, 
+{ username: agent14, persona: "science_writer2" }, 
+{ username: agent15, persona: "scientific_journalist"},
+]*/
+
+var agents = [
+  {username: agent1, persona: 'academic communications'},
+  {username: agent2, persona: 'academic researcher'},
+  {username: agent3, persona: 'academic researcher'},
+  {username: agent4, persona: 'academic researcher'},
+  {username: agent5, persona: 'academic researcher'},
+  {username: agent6, persona: 'academic science'},
+  {username: agent7, persona: 'academic science'},
+  {username: agent8, persona: 'academic science'},
+  {username: agent9, persona: 'academic writer'},
+  {username: agent10, persona: 'biologist'},
+  {username: agent11, persona: 'biology'},
+  {username: agent12, persona: 'biotechnology researcher'},
+  {username: agent13, persona: 'climate science'},
+  {username: agent14, persona: 'editor'},
+  {username: agent15, persona: 'editor'},
+  {username: agent16, persona: 'editor'},
+  {username: agent17, persona: 'educator'},
+  {username: agent18, persona: 'entry-level biology'},
+  {username: agent19, persona: 'environmental science'},
+  {username: agent20, persona: 'environmental'},
+  {username: agent21, persona: 'environmental'},
+  {username: agent22, persona: 'general-interest science'},
+  {username: agent23, persona: 'journalist'},
+  {username: agent24, persona: 'journalist'},
+  {username: agent25, persona: 'medical'},
+  {username: agent26, persona: 'microbiologist'},
+  {username: agent27, persona: 'microbiologist'},
+  {username: agent28, persona: 'molecular biologist'},
+  {username: agent29, persona: 'news aggregator'},
+  {username: agent30, persona: 'research coordinator'},
+  {username: agent31, persona: 'science communications'},
+  {username: agent32, persona: 'science communicator,'},
+  {username: agent33, persona: 'science communicator'},
+  {username: agent34, persona: 'science communicator'},
+  {username: agent35, persona: 'science communicator'},
+  {username: agent36, persona: 'science communicator'},
+  {username: agent37, persona: 'science editor'},
+  {username: agent38, persona: 'science editor'},
+  {username: agent39, persona: 'science editor'},
+  {username: agent40, persona: 'science editor'},
+  {username: agent41, persona: 'science enthusiast'},
+  {username: agent42, persona: 'science journalist'},
+  {username: agent43, persona: 'science journalist'},
+  {username: agent44, persona: 'science journalist'},
+  {username: agent45, persona: 'science journalist'},
+  {username: agent46, persona: 'science journalist'},
+  {username: agent47, persona: 'science journalist'},
+  {username: agent48, persona: 'science journalist'},
+  {username: agent49, persona: 'science journalist'},
+  {username: agent50, persona: 'science journalist'},
+  {username: agent51, persona: 'science journalist'},
+  {username: agent52, persona: 'science journalist'},
+  {username: agent53, persona: 'science journalist'},
+  {username: agent54, persona: 'science journalist'},
+  {username: agent55, persona: 'science journalist'},
+  {username: agent56, persona: 'science journalist'},
+  {username: agent57, persona: 'science journalist'},
+  {username: agent58, persona: 'science journalist'},
+  {username: agent59, persona: 'science journalist'},
+  {username: agent60, persona: 'science journalist'},
+  {username: agent61, persona: 'science journalist'},
+  {username: agent62, persona: 'science journalist'},
+  {username: agent63, persona: 'science journalist'},
+  {username: agent64, persona: 'science journalist'},
+  {username: agent65, persona: 'science journalist'},
+  {username: agent66, persona: 'science journalist'},
+  {username: agent67, persona: 'science journalist'},
+  {username: agent68, persona: 'science journalist'},
+  {username: agent69, persona: 'science journalist'},
+  {username: agent70, persona: 'science journalist'},
+  {username: agent71, persona: 'science journalist'},
+  {username: agent72, persona: 'science journalist'},
+  {username: agent73, persona: 'science journalist'},
+  {username: agent74, persona: 'science journalist'},
+  {username: agent75, persona: 'science journalist'},
+  {username: agent76, persona: 'science journalist'},
+  {username: agent77, persona: 'science journalist'},
+  {username: agent78, persona: 'science journalist'},
+  {username: agent79, persona: 'science journalist'},
+  {username: agent80, persona: 'science journalist'},
+  {username: agent81, persona: 'science journalist'},
+  {username: agent82, persona: 'science journalist'},
+  {username: agent83, persona: 'science journalist'},
+  {username: agent84, persona: 'science journalist'},
+  {username: agent85, persona: 'science journalist'},
+  {username: agent86, persona: 'science journalist'},
+  {username: agent87, persona: 'science journalist'},
+  {username: agent88, persona: 'science journalist'},
+  {username: agent89, persona: 'science journalist'},
+  {username: agent90, persona: 'science journalist'},
+  {username: agent91, persona: 'science journalist'},
+  {username: agent92, persona: 'science journalist'},
+  {username: agent93, persona: 'science journalist'},
+  {username: agent94, persona: 'science journalist'},
+  {username: agent95, persona: 'science journalist'},
+  {username: agent96, persona: 'science journalist'},
+  {username: agent97, persona: 'science journalist'},
+  {username: agent98, persona: 'science journalist'},
+  {username: agent99, persona: 'science journalist'},
+  {username: agent100, persona: 'science journalist'},
+  {username: agent101, persona: 'science journalist'},
+  {username: agent102, persona: 'science journalist'},
+  {username: agent103, persona: 'science journalist'},
+  {username: agent104, persona: 'science journalist'},
+  {username: agent105, persona: 'science journalist'},
+  {username: agent106, persona: 'science journalist'},
+  {username: agent107, persona: 'science journalist'},
+  {username: agent108, persona: 'science journalist'},
+  {username: agent109, persona: 'science journalist'},
+  {username: agent110, persona: 'science journalist'},
+  {username: agent111, persona: 'science journalist'},
+  {username: agent112, persona: 'science journalist'},
+  {username: agent113, persona: 'science journalist'},
+  {username: agent114, persona: 'science journalist'},
+  {username: agent115, persona: 'science journalist'},
+  {username: agent116, persona: 'science journalist'},
+  {username: agent117, persona: 'science journalist'},
+  {username: agent118, persona: 'science journalist'},
+  {username: agent119, persona: 'science journalist'},
+  {username: agent120, persona: 'science journalist'},
+  {username: agent121, persona: 'science journalist'},
+  {username: agent122, persona: 'science journalist'},
+  {username: agent123, persona: 'science journalist'},
+  {username: agent124, persona: 'science journalist'},
+  {username: agent125, persona: 'science journalist'},
+  {username: agent126, persona: 'science journalist'},
+  {username: agent127, persona: 'science journalist'},
+  {username: agent128, persona: 'science journalist'},
+  {username: agent129, persona: 'science journalist'},
+  {username: agent130, persona: 'science journalist'},
+  {username: agent131, persona: 'science journalist'},
+  {username: agent132, persona: 'science journalist'},
+  {username: agent133, persona: 'science journalist'},
+  {username: agent134, persona: 'science journalist'},
+  {username: agent135, persona: 'science journalist'},
+  {username: agent136, persona: 'science journalist'},
+  {username: agent137, persona: 'science journalist'},
+  {username: agent138, persona: 'science journalist'},
+  {username: agent139, persona: 'science journalist'},
+  {username: agent140, persona: 'science journalist'},
+  {username: agent141, persona: 'science journalist'},
+  {username: agent142, persona: 'science journalist'},
+  {username: agent143, persona: 'science journalist'},
+  {username: agent144, persona: 'science journalist'},
+  {username: agent145, persona: 'science journalist'},
+  {username: agent146, persona: 'science journalist'},
+  {username: agent147, persona: 'science journalist'},
+  {username: agent148, persona: 'science journalist'},
+  {username: agent149, persona: 'science journalist'},
+  {username: agent150, persona: 'science journalist'},
+  {username: agent151, persona: 'science journalist'},
+  {username: agent152, persona: 'science journalist'},
+  {username: agent153, persona: 'science journalist'},
+  {username: agent154, persona: 'science journalist'},
+  {username: agent155, persona: 'science journalist'},
+  {username: agent156, persona: 'science journalist'},
+  {username: agent157, persona: 'science news'},
+  {username: agent158, persona: 'science news'},
+  {username: agent159, persona: 'science news'},
+  {username: agent160, persona: 'science news'},
+  {username: agent161, persona: 'science news'},
+  {username: agent162, persona: 'science news'},
+  {username: agent163, persona: 'science news'},
+  {username: agent164, persona: 'science news'},
+  {username: agent165, persona: 'science news'},
+  {username: agent166, persona: 'science news'},
+  {username: agent167, persona: 'science news'},
+  {username: agent168, persona: 'science news'},
+  {username: agent169, persona: 'science reporter'},
+  {username: agent170, persona: 'science researcher'},
+  {username: agent171, persona: 'science researcher'},
+  {username: agent172, persona: 'science writer'},
+  {username: agent173, persona: 'science writer'},
+  {username: agent174, persona: 'science writer'},
+  {username: agent175, persona: 'science writer'},
+  {username: agent176, persona: 'science writer'},
+  {username: agent177, persona: 'science writer'},
+  {username: agent178, persona: 'science writer'},
+  {username: agent179, persona: 'science writer'},
+  {username: agent180, persona: 'science writer'},
+  {username: agent181, persona: 'science writer'},
+  {username: agent182, persona: 'science writer'},
+  {username: agent183, persona: 'science writer'},
+  {username: agent184, persona: 'science writer'},
+  {username: agent185, persona: 'science writer'},
+  {username: agent186, persona: 'science writer'},
+  {username: agent187, persona: 'science writer'},
+  {username: agent188, persona: 'science writer'},
+  {username: agent189, persona: 'science writer'},
+  {username: agent190, persona: 'science writer'},
+  {username: agent191, persona: 'science writer'},
+  {username: agent192, persona: 'science writer'},
+  {username: agent193, persona: 'science writer'},
+  {username: agent194, persona: 'science writer'},
+  {username: agent195, persona: 'science writer'},
+  {username: agent196, persona: 'science writer'},
+  {username: agent197, persona: 'science writer'},
+  {username: agent198, persona: 'science writer'},
+  {username: agent199, persona: 'science writer'},
+  {username: agent200, persona: 'science writer'},
+  {username: agent201, persona: 'science writer'},
+  {username: agent202, persona: 'science writer'},
+  {username: agent203, persona: 'science writer'},
+  {username: agent204, persona: 'science writer'},
+  {username: agent205, persona: 'science writer'},
+  {username: agent206, persona: 'science writer'},
+  {username: agent207, persona: 'science writer'},
+  {username: agent208, persona: 'science writer'},
+  {username: agent209, persona: 'science writer'},
+  {username: agent210, persona: 'science writer'},
+  {username: agent211, persona: 'science writer'},
+  {username: agent212, persona: 'science writer'},
+  {username: agent213, persona: 'science writer'},
+  {username: agent214, persona: 'science writer'},
+  {username: agent215, persona: 'science writer'},
+  {username: agent216, persona: 'science writer'},
+  {username: agent217, persona: 'science writer'},
+  {username: agent218, persona: 'science writer'},
+  {username: agent219, persona: 'science writer'},
+  {username: agent220, persona: 'science writer'},
+  {username: agent221, persona: 'science writer'},
+  {username: agent222, persona: 'science writer'},
+  {username: agent223, persona: 'science writer'},
+  {username: agent224, persona: 'science writer'},
+  {username: agent225, persona: 'science writer'},
+  {username: agent226, persona: 'science writer'},
+  {username: agent227, persona: 'science writer'},
+  {username: agent228, persona: 'science writer'},
+  {username: agent229, persona: 'science writer'},
+  {username: agent230, persona: 'science writer'},
+  {username: agent231, persona: 'science writer'},
+  {username: agent232, persona: 'science writer'},
+  {username: agent233, persona: 'science writer'},
+  {username: agent234, persona: 'science writer'},
+  {username: agent235, persona: 'science writer'},
+  {username: agent236, persona: 'science writer'},
+  {username: agent237, persona: 'science writer'},
+  {username: agent238, persona: 'science writer'},
+  {username: agent239, persona: 'science writer'},
+  {username: agent240, persona: 'science writer'},
+  {username: agent241, persona: 'science writer'},
+  {username: agent242, persona: 'science writer'},
+  {username: agent243, persona: 'science technology'},
+  {username: agent244, persona: 'science'},
+  {username: agent245, persona: 'science'},
+  {username: agent246, persona: 'science'},
+  {username: agent247, persona: 'science'},
+  {username: agent248, persona: 'science'},
+  {username: agent249, persona: 'science'},
+  {username: agent250, persona: 'science'},
+  {username: agent251, persona: 'science'},
+  {username: agent252, persona: 'science'},
+  {username: agent253, persona: 'science'},
+  {username: agent254, persona: 'scientific editor'},
+  {username: agent255, persona: 'scientific journalist'},
+  {username: agent256, persona: 'scientific journalist'},
+  {username: agent257, persona: 'scientific research'},
+  {username: agent258, persona: 'scientific researcher'},
+  {username: agent259, persona: 'scientist'}
 ]
+
 model = "mistral:7b-instruct-v0.2-q6_K";
 //topic = "Ukraine war"
 topic = "What are the implications of the recent violence between Israel and Palestine for Middle East peace efforts?" 
+
+ResearchQuestion = "How does the framing of scientific information in media impact public understanding and perception of scientific issues?";
 
 const myLogger = (function() {
   function log(...args) {
@@ -565,7 +865,6 @@ async function agent_Like_Comment_Loop(randomAgent) {
   responseLogger.log("agent_Like_Comment_Loop");
   mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }).then(async (req, res) => {
     //myLogger.log("Successfully connected to the database");
-    const databaseName = "casestudy4";
     const today = new Date();
     const Ffth_before = new Date();
     Ffth_before.setDate(today.getDate() - 30);
@@ -601,7 +900,7 @@ async function agent_Like_Comment_Loop(randomAgent) {
                   const msg = { "author": usr.username, "message": comment["body"] }
                   const interactions = await get_Interactions_Agent_on_Comments(agnt);
                   jsn = {
-                    "post": msg, "history": { interactions }, "integration": { "model": model, "provider": "OpenAI" },
+                    "post": msg, "history": { interactions }, "integration": { "model": model, "provider": "together" },
                     "language": "English", persona: [randomAgent["persona"]], "platform": "Twitter"
                   }
                   await delay(2000);
@@ -614,7 +913,7 @@ async function agent_Like_Comment_Loop(randomAgent) {
                       body: jsonContent,
                     })
                       .then(function json(response) {
-                        return response.json()
+                        return response()
                       })
                       .then((res) => {
                         //myLogger.log("Comment -like - response ****");
@@ -664,7 +963,7 @@ async function agent_Like_Post_Loop(randomAgent) {
         const usr = u[0];
         const msg = { "author": usr.username, "message": post["desc"] }
         const interactions = await get_Interactions_Agent_on_Posts(async (agnt, interact) => { });
-        jsn = {"post": msg, "history": { interactions }, "integration": { "model": model, "provider": "OpenAI" },
+        jsn = {"post": msg, "history": { interactions }, "integration": { "model": model, "provider": "together" },
                   "language": "English", persona: [randomAgent["persona"]], "platform": "Twitter"
         }
                  //myLogger.log(jsn)
@@ -678,7 +977,7 @@ async function agent_Like_Post_Loop(randomAgent) {
                     headers: { "Content-Type": "application/json", "Content-Type": "application/json;charset=UTF-8", "User-Agent": "node-fetch" },
                     body: jsonContent,
                   }).then(function json(response) {
-                      return response.json()
+                      return response()
                     }).then((res) => {
                       //myLogger.log(res["statusText"]);
                       //myLogger.log(res)
@@ -706,6 +1005,7 @@ async function agent_Like_Post_Loop(randomAgent) {
 async function agent_Reply_Comment_Loop(randomAgent) {
   try {
     responseLogger.log("agent_Reply_Comment_Loop");
+    
 
     const today = new Date();
     const Ffth_before = new Date();
@@ -715,13 +1015,15 @@ async function agent_Reply_Comment_Loop(randomAgent) {
     const agnts = await User.find({ username: randomAgent.username });
     const agnt = agnts[0];
     
+    responseLogger.log(randomAgent.username);
+    
     if (agnt) {
-      const posts = await Post.find()
-        .populate({ path: "comments", model: "Comment" })
-        .sort({ rank: -1 })
-        .limit(1);
+      const post = await Post.findOne()
+      .populate({ path: "comments", model: "Comment" })
+      .sort({ createdAt: -1 })
+      .exec();
 
-      for (const post of posts) {
+      //for (const post of posts) {
         const user = await User.findById(post.userId);
         
         const interactions = await get_Interactions_Agent_on_Comments(agnt);
@@ -729,7 +1031,7 @@ async function agent_Reply_Comment_Loop(randomAgent) {
 
         const jsn = {
           "history": { interactions },
-          "integration": { "model": model, "provider": "OpenAI" },
+          "integration": { "model": model, "provider": "together" },
           "language": "English",
           "length": "few-word",
           persona: [randomAgent.persona],
@@ -748,14 +1050,21 @@ async function agent_Reply_Comment_Loop(randomAgent) {
             "accept": "application/json"
           },
           body: jsonContent,
-        }).then(response => response.json());
+        })
 
-        myLogger.log(res);
-        if (res.response) {
-          await add_A_Comment(res.response, agnt.id, POST_ID_REPLY, agnt.username);
+        if (res.ok) {
+          const responseData = await res.json(); // Parse the JSON from the response
+          myLogger.log(responseData);
+  
+          // Check if response has the required 'response' field
+          if (responseData.response) {
+            await add_A_Comment(responseData.response, agnt.id, POST_ID_REPLY, agnt.username);
+          }
+        } else {
+          // Log if response is not ok
+          myLogger.log(`Error in fetch: ${res.statusText}`);
         }
       }
-    }
   } catch (err) {
     myLogger.log("Error in agent_Reply_Comment_Loop:", err);
   }
@@ -797,7 +1106,7 @@ async function agent_Reply_Comment_Loop(randomAgent) {
 
                 jsn = {
                   "history": { interactions },
-                  "integration": { "model": model, "provider": "local" },
+                  "integration": { "model": model, "provider": "together" },
                   "language": "English",
                   "length": "few-word",
                   persona: [randomAgent["persona"]],
@@ -814,9 +1123,9 @@ async function agent_Reply_Comment_Loop(randomAgent) {
                     path: '/reply',
                     headers: { "Content-Type": "application/json", "Content-Type": "application/json;charset=UTF-8", "User-Agent": "node-fetch", 'accept': 'application/json' },
                     body: jsonContent,
-                  }).then(response => response.json());
+                  }).then(response => response());
                     //.then(function json(response) {
-                    //  return response.json()
+                    //  return response()
                     //})
                     //.then((res) => {
                       //myLogger.log(res["status"]);
@@ -862,7 +1171,7 @@ async function agent_Reply_Comment_Loop(randomAgent) {
 
       jsn = {
           "history": {},
-          "integration": { "model": model, "provider": "local" },
+          "integration": { "model": model, "provider": "together" },
           "language": "English", "length": "few-word",
           persona: [randomAgent["persona"]],
           "platform": "Twitter",
@@ -882,7 +1191,7 @@ async function agent_Reply_Comment_Loop(randomAgent) {
             headers: { "Content-Type": "application/json", "Content-Type": "application/json;charset=UTF-8", "User-Agent": "node-fetch" },
             body: jsonContent,
           }).then(function json(response) {
-              return response.json()
+              return response()
             }).then((res) => {
               ////myLogger.log(POST_ID_REPLY)
               ////myLogger.log(agnt._id)
@@ -933,11 +1242,11 @@ async function agent_Generate_Post_Loop(randomAgent) {
       responseLogger.log(agnt);
       responseLogger.log(agnt._id);
       
-      const interactions = await get_Interactions_Agent_on_Comments(agnt);
+      //const interactions = await get_Interactions_Agent_on_Comments(agnt);
 
       const jsn = {
         "history": {},
-        "integration": { "model": model, "provider": "OpenAI" },
+        "integration": { "model": model, "provider": "together" },
         "language": "English",
         "length": "few-word",
         persona: [randomAgent.persona],
@@ -957,7 +1266,7 @@ async function agent_Generate_Post_Loop(randomAgent) {
           "User-Agent": "node-fetch" 
         },
         body: jsonContent,
-      }).then(response => response.json());
+      }).then(response => response());
 
       myLogger.log(res);
       if (res.response) {
@@ -969,6 +1278,34 @@ async function agent_Generate_Post_Loop(randomAgent) {
     myLogger.log("Error in agent_Generate_Post_Loop:", err);
   }
 }
+
+
+async function add_research_question(randomAgent) {
+  try {
+    responseLogger.log("add_research_question");
+    responseLogger.log(randomAgent.username);
+
+    // Assuming the mongoose connection is established elsewhere
+    const today = new Date();
+    const Ffth_before = new Date();
+    Ffth_before.setDate(today.getDate() - 60);
+    Ffth_before.setHours(0, 0, 0, 0);
+
+    const agnts = await User.find({ username: randomAgent.username });
+    const agnt = agnts[0];
+    
+    if (agnt) {
+      responseLogger.log(agnt);
+      responseLogger.log(agnt._id);
+        await add_A_Post(ResearchQuestion, agnt.id);
+      //}
+    }
+
+  } catch (err) {
+    myLogger.log("Error in agent_Generate_Post_Loop:", err);
+  }
+}
+
 
 
 
@@ -1005,26 +1342,36 @@ app.listen(port, function () {
   //myService4();
   const Run_A_Action = async () => {
     for (let i = 0; i < 1; i++) {
-      await agent_Generate_Post_Loop(agents[i+2]);
+    
+      //await agent_Generate_Post_Loop(agents[i]);
+      await add_research_question(agents[i]);
       
-      for (let j = 0; j < 30; j++) {
-        if (i == 0) {
-          if (j%3 == 0) await agent_Reply_Comment_Loop(agents[(j%3)+1]);
-          if (j%3 == 1) await agent_Reply_Comment_Loop(agents[(j%3)+1]);
-          if (j%3 == 2) await agent_Reply_Comment_Loop(agents[(j%3)-2]);
-        }
+      for (let j = 0; j < 10000; j++) {
+       // if (i == 0) {
+          responseLogger.log(j);
+          //if (j%3 == 0) {
+            responseLogger.log(agents[j%259]);
+            await agent_Reply_Comment_Loop(agents[j%259]);
+            //} //
+          //else if (j%3 == 1) {
+           //   await agent_Reply_Comment_Loop(agents[(j)]);
+           // } //
+          //else if (j%3 == 2) {
+           //   await agent_Reply_Comment_Loop(agents[(j)]);
+           // } //
+        //}
   
-        if (i == 1) {
-          if (j%3 == 0) await agent_Reply_Comment_Loop(agents[(j%3)+1]);
-          if (j%3 == 1) await agent_Reply_Comment_Loop(agents[(j%3)+1]);
-          if (j%3 == 2) await agent_Reply_Comment_Loop(agents[(j%3)-2]);
-        }
+        //if (i == 1) {
+        //  if (j%3 == 0) await agent_Reply_Comment_Loop(agents[(j%3)]);
+        //  if (j%3 == 1) await agent_Reply_Comment_Loop(agents[(j%3)]);
+        //  if (j%3 == 2) await agent_Reply_Comment_Loop(agents[(j%3)]);
+        //}
   
-        if (i == 2) {
-          if (j%3 == 0) await agent_Reply_Comment_Loop(agents[(j%3)+1]);
-          if (j%3 == 1) await agent_Reply_Comment_Loop(agents[(j%3)+1]);
-          if (j%3 == 2) await agent_Reply_Comment_Loop(agents[(j%3)-2]);
-        }
+        //if (i == 2) {
+         // if (j%3 == 0) await agent_Reply_Comment_Loop(agents[(j%3)]);
+         // if (j%3 == 1) await agent_Reply_Comment_Loop(agents[(j%3)]);
+         // if (j%3 == 2) await agent_Reply_Comment_Loop(agents[(j%3)]);
+        //}
       }
     }
   };
@@ -1059,6 +1406,7 @@ app.listen(port, function () {
   Run_A_Action()
   //setInterval(Run_A_Action ,serDelayTime);
   responseLogger.log(`Scheduler app listening on port ${port}!`);
+  //process.exit(1); 
   
 }).catch(err => {
   console.error('Failed to connect to MongoDB', err);

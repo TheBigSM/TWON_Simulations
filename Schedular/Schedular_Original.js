@@ -27,7 +27,8 @@ const io = require('socket.io-client');
 const socket = io('http://localhost:3000');
 
 const { persona, username, liberal, mistral_7b, mixtral_8_7b, conservative, neutral, agent1, agent2, agent3, agent4, agent5, agent6, agent7, agent8, agent9, agent10, agent11, agent12, agent13, agent14, agent15 } = require('./Constants.js');
-var agents = [{ username: agent1, persona: liberal }, { username: agent2, persona: conservative }, { username: agent3, persona: neutral },
+var agents = [
+{ username: agent1, persona: liberal }, { username: agent2, persona: conservative }, { username: agent3, persona: neutral },
 { username: agent4, persona: liberal }, { username: agent5, persona: conservative }, { username: agent6, persona: neutral },
 { username: agent7, persona: liberal }, { username: agent8, persona: conservative }, { username: agent9, persona: neutral },
 { username: agent10, persona: liberal }, { username: agent11, persona: conservative }, { username: agent12, persona: neutral },
@@ -320,7 +321,7 @@ async function like_A_Post(userId, postId) {
       //myLogger.log(idl);
       await Post.findOneAndUpdate({ _id: postId }, { $pull: { 'likes': { $in: [idl] } } });
       await PostLike.findByIdAndDelete({ _id: idl });
-      //myLogger.log("Not Added - DONE - LIKE - 1")
+      responseLogger.log("Not Added - DONE - LIKE - 1")
     } catch (err) {
       //myLogger.log(err);
     }
@@ -340,7 +341,7 @@ async function like_A_Post(userId, postId) {
         //myLogger.log(err)
         //myLogger.log(block)
       });
-      //myLogger.log("Not Added - DONE - LIKE - 2")
+      responseLogger.log("Not Added - DONE - LIKE - 2")
 
     } catch (err) {
       //myLogger.log(err);
@@ -394,7 +395,7 @@ async function dislike_A_Post(postId, userId) {
 
       const post = await Post.findById(postId).populate([{ path: "likes", model: "PostLike" }, { path: "dislikes", model: "PostDislike" }]).sort({ createdAt: 'descending' }).exec();
       var diction = { "likes": -1, "dislikes": parseInt(0) }
-      //myLogger.log("DONE - DISLIKE - 1")
+      responseLogger.log("DONE - DISLIKE - 1")
 
 
     } catch (err) {
@@ -416,7 +417,7 @@ async function dislike_A_Post(postId, userId) {
       });
       const post2 = await Post.findById(postId).populate([{ path: "likes", model: "PostLike" }, { path: "dislikes", model: "PostDislike" }]).sort({ createdAt: 'descending' }).exec();
       var diction = { "likes": parseInt(0), "dislikes": -1 }
-      //myLogger.log("DONE - DISLIKE - 2")
+      responseLogger.log("DONE - DISLIKE - 2")
 
     } catch (err) {
       //myLogger.log(err);
@@ -607,7 +608,7 @@ async function agent_Like_Comment_Loop(randomAgent) {
                   const msg = { "author": usr.username, "message": comment["body"] }
                   const interactions = await get_Interactions_Agent_on_Comments(agnt);
                   jsn = {
-                    "post": msg, "history": { interactions }, "integration": { "model": model, "provider": "local" },
+                    "post": msg, "history": { interactions }, "integration": { "model": model, "provider": "together" },
                     "language": "English", persona: [randomAgent["persona"]], "platform": "Twitter"
                   }
                   const jsonContent = JSON.stringify(jsn);
@@ -663,7 +664,7 @@ async function agent_Like_Post_Loop(randomAgent) {
         const usr = u[0];
         const msg = { "author": usr.username, "message": post["desc"] }
         const interactions = await get_Interactions_Agent_on_Posts(async (agnt, interact) => { });
-        jsn = {"post": msg, "history": { interactions }, "integration": { "model": model, "provider": "local" },
+        jsn = {"post": msg, "history": { interactions }, "integration": { "model": model, "provider": "together" },
                   "language": "English", persona: [randomAgent["persona"]], "platform": "Twitter"
         }
                  //myLogger.log(jsn)
@@ -680,7 +681,7 @@ async function agent_Like_Post_Loop(randomAgent) {
                       }
                     }
                   } catch (err) {
-                    responseLogger.log("Error in agent_Generate_Post_Loop:", err);
+                    responseLogger.log("Error in agent_Like_Post_Loop:", err);
                   }
                 }
 
@@ -699,15 +700,15 @@ async function agent_Reply_Comment_Loop(randomAgent) {
     responseLogger.log( randomAgent[username]);
 
     const agnts = await User.find({ username: randomAgent[username] })
-    const agnt = Array.isArray(agnts) ? agnts[0] : agnts;
+    const agnt =  agnts[0] 
     
     if (agnt) {
-      const posts = await Post.find()
+      const post = await Post.findOne()
         .populate({ path: "comments", model: "Comment" })
         .sort({ rank: -1 })
-        .limit(1);
+        .exec();
 
-      for (const post of posts) {
+      //for (const post of posts) {
         const user = await User.findById(post.userId);
         
         const interactions = await get_Interactions_Agent_on_Comments(agnt);
@@ -715,7 +716,7 @@ async function agent_Reply_Comment_Loop(randomAgent) {
 
         const jsn = {
           "history": { interactions },
-          "integration": { "model": model, "provider": "local" },
+          "integration": { "model": model, "provider": "together" },
           "language": "English",
           "length": "few-word",
           persona: [randomAgent.persona],
@@ -734,14 +735,20 @@ async function agent_Reply_Comment_Loop(randomAgent) {
             "accept": "application/json"
           },
           body: jsonContent,
-        }).then(response => response.json());
-
-        responseLogger.log(res);
-        if (res.response) {
-          await add_A_Comment(res.response, agnt.id, POST_ID_REPLY, agnt.username);
+        })
+        if (res.ok) {
+          const responseData = await res.json(); // Parse the JSON from the response
+          myLogger.log(responseData);
+  
+          // Check if response has the required 'response' field
+          if (responseData.response) {
+            await add_A_Comment(responseData.response, agnt.id, POST_ID_REPLY, agnt.username);
+          }
+        } else {
+          // Log if response is not ok
+          myLogger.log(`Error in fetch: ${res.statusText}`);
         }
       }
-    }
   } catch (err) {
     responseLogger.log("Error in agent_Reply_Comment_Loop:", err);
   }
@@ -759,11 +766,11 @@ async function agent_Generate_Post_Loop(randomAgent) {
     var agent_count = 0;
     
     responseLogger.log(randomAgent);
-    responseLogger.log(username);
-    responseLogger.log(randomAgent[username]);
+    responseLogger.log(randomAgent["username"]);
     
-    const agnts = await User.find({ username: randomAgent[username] })
-    const agnt = Array.isArray(agnts) ? agnts[0] : agnts;
+    const agnts = await User.find({"username": randomAgent[username] })
+    responseLogger.log(agnts[0]);
+    const agnt =agnts[0]
     if (agnt) {
       responseLogger.log(agnt);
       responseLogger.log(agnt._id);
@@ -777,11 +784,11 @@ async function agent_Generate_Post_Loop(randomAgent) {
 
       jsn = {
           "history": { interactions },
-          "integration": { "model": model, "provider": "local" },
+          "integration": { "model": model, "provider": "together" },
           "language": "English", "length": "few-word",
           persona: [randomAgent["persona"]],
           "platform": "Twitter",
-          "topic": "Ukraine war"//"Ukraine war" 
+          "topic": "US elections 2024"//"Ukraine war" 
       }
 
       responseLogger.log(jsn);
@@ -798,7 +805,7 @@ async function agent_Generate_Post_Loop(randomAgent) {
         }).then(response => response.json());
               responseLogger.log("res");
               responseLogger.log(res);
-              if (res.response) {
+              if (res["response"]) {
                 add_A_Post(res["response"], agnt.id);
               }
           }
@@ -842,46 +849,49 @@ app.listen(port, function () {
   //setInterval(Run_A_Action ,serDelayTime);
   //responseLogger.log(`Scheduler app listening on port ${port}!`);
 
+  const Run_A_Action = async () => {
+    try {
+      for (let i = 0; i < 50; i++) {
+      
+          var con = getRandomInt(0, agents.length)
+          var randomAgent = agents[con];
+  
+          randAct = getRandomInt(0, 3)
+          responseLogger.log(`Action ${i}!`)
+          responseLogger.log(`Random Action ${randAct}!`)
+          responseLogger.log(`con ${con}!`)
+          responseLogger.log(`randomAgent ${randomAgent}!`)
+          
+          if (randAct == 0){
+            await agent_Generate_Post_Loop(randomAgent);
+            //await agent_Like_Post_Loop(randomAgent);
+ 
+    
+          } else if(randAct== 1){ 
+            await agent_Generate_Post_Loop(randomAgent);
+            //await agent_Like_Comment_Loop(randomAgent);
+      
+    
+          } else if(randAct== 2){ 
+            await agent_Generate_Post_Loop(randomAgent);
+            //await agent_Reply_Comment_Loop(randomAgent);
+       
+    
+          } else if(randAct== 3){ 
+            responseLogger.log(randomAgent);
+            await agent_Generate_Post_Loop(randomAgent);
+       
+    
+          }
+    }
+  } catch (error) {
+    responseLogger.log(`Scheduler app Error ${error}!`);
+  }
+  };
+
+
   connectDB().then(() => {
     console.log('MongoDB connected successfully');
-    
-  
-    const Run_A_Action = async () => {
-      try {
-        for (let i = 0; i < 1000; i++) {
-        
-            var con = getRandomInt(0, agents.length)
-            var randomAgent = agents[con];
-    
-            randAct = getRandomInt(0, 3)
-            responseLogger.log(`Action ${i}!`)
-            responseLogger.log(`Random Action ${randAct}!`)
-            responseLogger.log(`con ${con}!`)
-            responseLogger.log(`randomAgent ${randomAgent}!`)
-            
-            if (randAct == 0){
-              await agent_Like_Post_Loop(randomAgent);
-   
-      
-            } else if(randAct== 1){ 
-              await agent_Like_Comment_Loop(randomAgent);
-        
-      
-            } else if(randAct== 2){ 
-              await agent_Reply_Comment_Loop(randomAgent);
-         
-      
-            } else if(randAct== 3){ 
-              responseLogger.log(randomAgent);
-              await agent_Generate_Post_Loop(randomAgent);
-         
-      
-            }
-      }
-    } catch (error) {
-      responseLogger.log(`Scheduler app Error ${error}!`);
-    }
-    };
   
   //setInterval(Run_A_Action ,serDelayTime);
   Run_A_Action()
