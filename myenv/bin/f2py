@@ -1,4 +1,4 @@
-#!/home/matejas/Twon-Simulations-1/myenv/bin/python
+#!/home/matejas/Twon-Simulations-1/myenv/bin/python3.9
 # -*- coding: utf-8 -*-
 import re
 import sys

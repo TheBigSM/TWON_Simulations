@@ -893,7 +893,8 @@ app.listen(process.env.network_port, function () {
     console.log('MongoDB connected successfully');
   
   //setInterval(Run_A_Action ,serDelayTime);
-  Run_A_Action()
+  //Run_A_Action()
+  agent_Generate_Post_Loop(8);
   responseLogger.log(`Scheduler app listening on port ${process.env.network_port}!`);
   
 }).catch(err => {
