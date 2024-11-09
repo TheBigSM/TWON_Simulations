@@ -221,9 +221,9 @@ async function fetchAllPosts(ff_ids) {
   ////console.log("connecting to the db");
   responseLogger.log("connecting to the db");
   responseLogger.log(process.env.DB_URL);
-  mongoose.connect(process.env.DB_URL,  {
+  mongoose.connect(process.env.DB_URL)/*,  {
     useNewUrlParser: true
-    }).then(async(req, res) => {
+    })*/.then(async(req, res) => {
 
   ////console.log("Successfully connected to the database"); 
 

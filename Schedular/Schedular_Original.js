@@ -848,7 +848,7 @@ app.listen(process.env.network_port, function () {
   //setInterval(Run_A_Action ,serDelayTime);
   //responseLogger.log(`Scheduler app listening on port ${port}!`);
 
-  const Run_A_Action = async () => {
+  /*const Run_A_Action = async () => {
     try {
       for (let i = 0; i < 50; i++) {
       
@@ -886,7 +886,7 @@ app.listen(process.env.network_port, function () {
   } catch (error) {
     responseLogger.log(`Scheduler app Error ${error}!`);
   }
-  };
+  };*/
 
 
   connectDB().then(() => {
