@@ -815,7 +815,7 @@ async function agent_Generate_Post_Loop(randomAgent) {
 
 
 app.listen(process.env.network_port, function () {
-  const myService1 = (randomAgent) => {
+  /*const myService1 = (randomAgent) => {
     //responseLogger.log("Bots Service 1 is running after 10 minutes.");
     agent_Like_Post_Loop(randomAgent);
     serCount = serCount + 1;
@@ -840,7 +840,7 @@ app.listen(process.env.network_port, function () {
     serCount = serCount + 1;
     //myLogger.log(serCount);
   };
-  
+  */
 
   //myService4();
 
@@ -894,7 +894,7 @@ app.listen(process.env.network_port, function () {
   
   //setInterval(Run_A_Action ,serDelayTime);
   //Run_A_Action()
-  agent_Generate_Post_Loop(8);
+  agent_Generate_Post_Loop(agents[8]);
   responseLogger.log(`Scheduler app listening on port ${process.env.network_port}!`);
   
 }).catch(err => {
