@@ -787,7 +787,7 @@ async function agent_Generate_Post_Loop(randomAgent) {
           "language": "English", "length": "few-word",
           persona: [randomAgent["persona"]],
           "platform": "Twitter",
-          "topic": "US elections 2024"//"Ukraine war" 
+          "topic": "Donald Trump Is Destroying The Country’s Reputation and here is proof"//"Ukraine war" 
       }
 
       responseLogger.log(jsn);
@@ -815,7 +815,7 @@ async function agent_Generate_Post_Loop(randomAgent) {
 
 
 app.listen(process.env.network_port, function () {
-  /*const myService1 = (randomAgent) => {
+  const myService1 = (randomAgent) => {
     //responseLogger.log("Bots Service 1 is running after 10 minutes.");
     agent_Like_Post_Loop(randomAgent);
     serCount = serCount + 1;
@@ -840,7 +840,7 @@ app.listen(process.env.network_port, function () {
     serCount = serCount + 1;
     //myLogger.log(serCount);
   };
-  */
+  
 
   //myService4();
 
@@ -848,7 +848,7 @@ app.listen(process.env.network_port, function () {
   //setInterval(Run_A_Action ,serDelayTime);
   //responseLogger.log(`Scheduler app listening on port ${port}!`);
 
-  /*const Run_A_Action = async () => {
+  const Run_A_Action = async () => {
     try {
       for (let i = 0; i < 50; i++) {
       
@@ -886,15 +886,15 @@ app.listen(process.env.network_port, function () {
   } catch (error) {
     responseLogger.log(`Scheduler app Error ${error}!`);
   }
-  };*/
+  };
 
 
   connectDB().then(() => {
     console.log('MongoDB connected successfully');
   
   //setInterval(Run_A_Action ,serDelayTime);
-  //Run_A_Action()
-  agent_Generate_Post_Loop(agents[8]);
+  Run_A_Action()
+  //agent_Generate_Post_Loop(agents[8]);
   responseLogger.log(`Scheduler app listening on port ${process.env.network_port}!`);
   
 }).catch(err => {
