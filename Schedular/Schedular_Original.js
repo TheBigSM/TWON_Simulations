@@ -34,7 +34,7 @@ var agents = [
 { username: agent10, persona: liberal }, { username: agent11, persona: conservative }, { username: agent12, persona: neutral },
 { username: agent13, persona: liberal }, { username: agent14, persona: conservative }, { username: agent15, persona: neutral },
 ]
-model = "mistral:7b-instruct-v0.2-q6_K";//"gpt-3.5-turbo";//"gpt-4";// "mistral:7b-instruct-v0.2-q6_K";
+model = 'gpt-4'
 
 
 const myLogger = (function() {
@@ -787,7 +787,7 @@ async function agent_Generate_Post_Loop(randomAgent) {
           "language": "English", "length": "few-word",
           persona: [randomAgent["persona"]],
           "platform": "Twitter",
-          "topic": "Trump attends civil rights museum opening; black leaders stay away"//"Ukraine war" 
+          "topic": "Ukraine war"//"Ukraine war" 
       }
 
       responseLogger.log(jsn);
@@ -850,7 +850,7 @@ app.listen(process.env.network_port, function () {
 
   const Run_A_Action = async () => {
     try {
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 250; i++) {
       
           var con = getRandomInt(0, agents.length)
           var randomAgent = agents[con];
@@ -862,18 +862,18 @@ app.listen(process.env.network_port, function () {
           responseLogger.log(`randomAgent ${randomAgent}!`)
           
           if (randAct == 0){
-            await agent_Generate_Post_Loop(randomAgent);
-            //await agent_Like_Post_Loop(randomAgent);
+            //await agent_Generate_Post_Loop(randomAgent);
+            await agent_Like_Post_Loop(randomAgent);
  
     
           } else if(randAct== 1){ 
-            await agent_Generate_Post_Loop(randomAgent);
-            //await agent_Like_Comment_Loop(randomAgent);
+            //await agent_Generate_Post_Loop(randomAgent);
+            await agent_Like_Comment_Loop(randomAgent);
       
     
           } else if(randAct== 2){ 
-            await agent_Generate_Post_Loop(randomAgent);
-            //await agent_Reply_Comment_Loop(randomAgent);
+            //await agent_Generate_Post_Loop(randomAgent);
+            await agent_Reply_Comment_Loop(randomAgent);
        
     
           } else if(randAct== 3){ 
