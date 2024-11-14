@@ -1,37 +1,45 @@
 post_label,cleaned_desc,sentiment,user_label
-post 1,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for genuine commitment to equality.,0.5267,User 1
-post 2,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for genuine commitment to equality.,0.5267,User 1
-post 3,"Disappointed to see some black leaders boycott Trump's visit to the civil rights museum. We should be celebrating progress, not using it as a political stunt.",0.2732,User 2
-post 4,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for genuine commitment to equality.,0.5267,User 3
-post 5,"Disappointed to see some black leaders boycott Trump's visit to the civil rights museum. We should be celebrating progress, not using it as a political stunt.",0.2732,User 4
-post 6,"Disappointed to see some black leaders boycott Trump's visit to the civil rights museum. We should be celebrating progress, not using it as a political stunt.",0.2732,User 2
-post 7,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for genuine commitment to equality.,0.5267,User 1
-post 8,"Interesting to see different perspectives on the civil rights museum opening. It's important to remember that progress towards equality is a collective effort and requires the participation of all individuals, regardless of their background or beliefs.",0.743,User 5
-post 9,"Disappointed to see some black leaders boycott Trump's visit to the civil rights museum. We should be celebrating progress, not using it as a political stunt.",0.2732,User 6
-post 10,"Interesting to see different perspectives on the civil rights museum opening. It's important to remember that progress towards equality is a collective effort and requires the participation of all individuals, regardless of their background or beliefs.",0.743,User 7
-post 11,"Interesting to see different perspectives on the civil rights museum opening. It's important to remember that progress towards equality is a collective effort and requires the participation of all individuals, regardless of their background or beliefs.",0.743,User 7
-post 12,"Disappointed to see some black leaders boycott Trump's visit to the civil rights museum. We should be celebrating progress, not using it as a political stunt.",0.2732,User 8
-post 13,"Interesting to see different perspectives on the civil rights museum opening. It's important to remember that progress towards equality is a collective effort and requires the participation of all individuals, regardless of their background or beliefs.",0.743,User 5
-post 14,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for genuine commitment to equality.,0.5267,User 9
-post 15,"Disappointed to see some black leaders boycott Trump's visit to the civil rights museum. We should be celebrating progress, not using it as a political stunt.",0.2732,User 2
-post 16,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for genuine commitment to equality.,0.5267,User 10
-post 17,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for genuine commitment to equality.,0.5267,User 10
-post 18,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for genuine commitment to equality.,0.5267,User 10
-post 19,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for genuine commitment to equality.,0.5267,User 1
-post 20,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for genuine commitment to equality.,0.5267,User 11
-post 21,"Disappointed to see some black leaders boycott Trump's visit to the civil rights museum. We should be celebrating progress, not using it as a political stunt.",0.2732,User 6
-post 22,"Interesting to see different perspectives on the civil rights museum opening. It's important to remember that progress towards equality is a collective effort and requires the participation of all individuals, regardless of their background or beliefs.",0.743,User 12
-post 23,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for true commitment to equality.,0.7351,User 9
-post 24,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for genuine commitment to equality.,0.5267,User 11
-post 25,"Disappointed to see some black leaders boycott Trump's visit to the civil rights museum. We should be celebrating progress, not using it as a political stunt.",0.2732,User 6
-post 26,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for true commitment to equality.,0.7351,User 1
-post 27,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for genuine commitment to equality.,0.5267,User 11
-post 28,"Disappointed to see some black leaders boycott Trump's visit to the civil rights museum. We should be celebrating progress, not using it as a political stunt.",0.2732,User 2
-post 29,Disappointed to see Trump attend a civil rights museum opening without acknowledging the ongoing struggle for racial justice. Black leaders staying away sends a powerful message about the need for genuine commitment to equality.,0.5267,User 9
-post 30,"Interesting to see different perspectives on the civil rights museum opening. It's important to remember that progress towards equality is a collective effort and requires the participation of all individuals, regardless of their background or beliefs.",0.743,User 7
-post 31,"Interesting to see different perspectives on the civil rights museum opening. It's important to remember that progress towards equality is a collective effort and requires the participation of all individuals, regardless of their background or beliefs.",0.743,User 12
-post 32,"Interesting to see different perspectives on the civil rights museum opening. It's important to remember that progress towards equality is a collective effort and requires the participation of all individuals, regardless of their background or beliefs.",0.743,User 12
-post 33,"Interesting to see different perspectives on the civil rights museum opening. It's important to remember that progress towards equality is a collective effort and requires the participation of all individuals, regardless of their background or beliefs.",0.743,User 5
-post 34,"Disappointed to see some black leaders boycott Trump's visit to the civil rights museum. We should be celebrating progress, not using it as a political stunt.",0.2732,User 6
-post 35,"Disappointed to see some black leaders boycott Trump's visit to the civil rights museum. We should be celebrating progress, not using it as a political stunt.",0.2732,User 2
-post 36,"Disappointed to see some black leaders boycott Trump's visit to the civil rights museum. We should be celebrating progress, not using it as a political stunt.",0.2732,User 8
+post 1,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 1
+post 2,Evidencebased analysis shows Trump's actions harming our reputation. Let's promote constructive dialogue & mutual understanding.,-0.25,User 2
+post 3,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 3
+post 4,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 4
+post 5,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 5
+post 6,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 3
+post 7,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 6
+post 8,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 6
+post 9,Evidencebased analysis shows Trump's actions harming our reputation. Let's promote constructive dialogue & mutual understanding.,-0.25,User 7
+post 10,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 8
+post 11,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 4
+post 12,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 8
+post 13,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 9
+post 14,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 6
+post 15,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 10
+post 16,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 10
+post 17,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 11
+post 18,Evidencebased analysis shows Trump's actions harming our reputation. Let's promote constructive dialogue & mutual understanding.,-0.25,User 2
+post 19,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 9
+post 20,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 4
+post 21,Evidencebased analysis shows Trump's actions harming our reputation. Let's promote constructive dialogue & mutual understanding.,-0.25,User 7
+post 22,Evidencebased analysis shows Trump's actions harming our reputation. Let's promote constructive dialogue & mutual understanding.,-0.25,User 12
+post 23,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 5
+post 24,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 6
+post 25,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 11
+post 26,Evidencebased analysis shows Trump's actions harming our reputation. Let's promote constructive dialogue & mutual understanding.,-0.25,User 2
+post 27,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 10
+post 28,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 9
+post 29,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 8
+post 30,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 3
+post 31,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 13
+post 32,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 13
+post 33,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 1
+post 34,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 8
+post 35,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 6
+post 36,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 11
+post 37,Evidencebased analysis shows Trump's actions harming our reputation. Let's promote constructive dialogue & mutual understanding.,-0.25,User 12
+post 38,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 4
+post 39,Evidencebased analysis shows Trump's actions harming our reputation. Let's promote constructive dialogue & mutual understanding.,-0.25,User 2
+post 40,Evidencebased analysis shows Trump's actions harming our reputation. Let's promote constructive dialogue & mutual understanding.,-0.25,User 12
+post 41,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 8
+post 42,Trump's actions are damaging our country's reputation. We need to hold him accountable and restore our values.,0.1531,User 3
+post 43,Evidencebased analysis shows Trump's actions harming our reputation. Let's promote constructive dialogue & mutual understanding.,-0.25,User 7
+post 44,Trump's actions are tarnishing our country's reputation. We must stand up for justice and equality.,0.5267,User 13

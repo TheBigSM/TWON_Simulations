@@ -787,7 +787,7 @@ async function agent_Generate_Post_Loop(randomAgent) {
           "language": "English", "length": "few-word",
           persona: [randomAgent["persona"]],
           "platform": "Twitter",
-          "topic": "Donald Trump Is Destroying The Country’s Reputation and here is proof"//"Ukraine war" 
+          "topic": "Trump attends civil rights museum opening; black leaders stay away"//"Ukraine war" 
       }
 
       responseLogger.log(jsn);
