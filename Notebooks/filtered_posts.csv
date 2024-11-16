@@ -1,45 +1,191 @@
 post_label,cleaned_desc,sentiment,user_label
-post 1,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 1
-post 2,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 2
-post 3,Vote for limited government and individual liberties in 2024.,0.34,User 3
-post 4,"Stay informed, stay objective. Let's engage in constructive dialogue about the US elections 2024.",0.34,User 4
-post 5,"Stay informed, stay objective. Let's navigate the US elections 2024 with critical thinking and evidencebased reasoning.",-0.3182,User 5
-post 6,"Stay informed, stay objective. Let's navigate the US elections 2024 with critical thinking and evidencebased reasoning.",-0.3182,User 6
-post 7,"Stay informed, stay objective. Let's navigate the US elections 2024 with critical thinking and evidencebased reasoning.",-0.3182,User 6
-post 8,"Stay informed, stay objective. Let's navigate the US elections 2024 with critical thinking and evidencebased reasoning.",-0.3182,User 6
-post 9,Vote for limited government and individual liberties in 2024.,0.34,User 7
-post 10,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 8
-post 11,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 1
-post 12,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 2
-post 13,"Stay informed, stay objective. Let's engage in constructive dialogue about the US elections 2024.",0.34,User 4
-post 14,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 8
-post 15,Vote for limited government and individual liberties in 2024.,0.34,User 9
-post 16,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 10
-post 17,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 11
-post 18,"Stay informed, stay objective. Let's navigate the US elections 2024 with critical thinking and evidencebased reasoning.",-0.3182,User 6
-post 19,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 11
-post 20,"Stay informed, stay objective. Let's navigate the US elections 2024 with critical thinking and evidencebased reasoning.",-0.3182,User 6
-post 21,"Stay informed, stay objective. Let's navigate the US elections 2024 with critical thinking and evidencebased reasoning.",-0.3182,User 4
-post 22,Vote for limited government and individual liberties in 2024.,0.34,User 12
-post 23,Vote for limited government and individual liberties in 2024.,0.34,User 7
-post 24,Vote for limited government and individual liberties in 2024.,0.34,User 7
-post 25,Vote for limited government and individual liberties in 2024.,0.34,User 7
-post 26,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 11
-post 27,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 11
-post 28,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 1
-post 29,Vote for limited government and individual liberties in 2024.,0.34,User 9
-post 30,Vote for limited government and individual liberties in 2024.,0.34,User 12
-post 31,Vote for limited government and individual liberties in 2024.,0.34,User 7
-post 32,Vote for limited government and individual liberties in 2024.,0.34,User 3
-post 33,Vote for limited government and individual liberties in 2024.,0.34,User 9
-post 34,Vote for limited government and individual liberties in 2024.,0.34,User 3
-post 35,Vote for limited government and individual liberties in 2024.,0.34,User 12
-post 36,"Stay informed, stay objective. Let's engage in constructive dialogue about the US elections 2024.",0.34,User 4
-post 37,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 1
-post 38,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 10
-post 39,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 10
-post 40,Vote for limited government and individual liberties in 2024.,0.34,User 7
-post 41,"Vote for progress and equality in 2024! Let's elect leaders who prioritize human rights, social justice, and environmental sustainability.",0.7574,User 1
-post 42,Vote for limited government and individual liberties in 2024.,0.34,User 7
-post 43,Vote for limited government and individual liberties in 2024.,0.34,User 3
-post 44,"Stay informed, stay objective. Let's navigate the US elections 2024 with critical thinking and evidencebased reasoning.",-0.3182,User 13
+post 1,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 1
+post 2,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 2
+post 3,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 3
+post 4,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 4
+post 5,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 5
+post 6,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 6
+post 7,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 7
+post 8,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 8
+post 9,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 9
+post 10,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 10
+post 11,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 11
+post 12,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 8
+post 13,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 10
+post 14,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 11
+post 15,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 9
+post 16,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 12
+post 17,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 11
+post 18,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 13
+post 19,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 4
+post 20,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 7
+post 21,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 12
+post 22,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 5
+post 23,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 6
+post 24,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 8
+post 25,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 7
+post 26,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 12
+post 27,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 14
+post 28,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 15
+post 29,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 14
+post 30,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 1
+post 31,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 6
+post 32,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 3
+post 33,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 10
+post 34,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 16
+post 35,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 4
+post 36,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 17
+post 37,Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.,0.1027,User 18
+post 38,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 11
+post 39,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 1
+post 40,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 19
+post 41,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 20
+post 42,"Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.""",0.1027,User 19
+post 43,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 19
+post 44,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 4
+post 45,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 19
+post 46,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 12
+post 47,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 18
+post 48,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 21
+post 49,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 9
+post 50,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 10
+post 51,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 3
+post 52,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 7
+post 53,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 9
+post 54,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 10
+post 55,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 12
+post 56,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 12
+post 57,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 20
+post 58,"Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.""",0.1027,User 18
+post 59,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 21
+post 60,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 11
+post 61,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 14
+post 62,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 19
+post 63,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 5
+post 64,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 8
+post 65,Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.,0.1027,User 19
+post 66,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 11
+post 67,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 17
+post 68,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 7
+post 69,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 8
+post 70,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 19
+post 71,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 18
+post 72,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 6
+post 73,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 5
+post 74,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 11
+post 75,Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.,0.1027,User 16
+post 76,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 3
+post 77,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 4
+post 78,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 22
+post 79,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 6
+post 80,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 12
+post 81,Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.,0.1027,User 17
+post 82,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 9
+post 83,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 3
+post 84,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 12
+post 85,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 11
+post 86,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 13
+post 87,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 11
+post 88,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 17
+post 89,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 12
+post 90,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 9
+post 91,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 3
+post 92,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 9
+post 93,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 10
+post 94,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 3
+post 95,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 1
+post 96,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 21
+post 97,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 17
+post 98,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 17
+post 99,Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.,0.1027,User 18
+post 100,Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.,0.1027,User 16
+post 101,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 10
+post 102,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 5
+post 103,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 9
+post 104,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 23
+post 105,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 3
+post 106,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 8
+post 107,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 18
+post 108,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 4
+post 109,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 21
+post 110,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 14
+post 111,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 5
+post 112,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 1
+post 113,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 15
+post 114,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 15
+post 115,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 1
+post 116,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 14
+post 117,Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.,0.1027,User 18
+post 118,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 7
+post 119,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 11
+post 120,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 1
+post 121,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 17
+post 122,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 12
+post 123,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 11
+post 124,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 20
+post 125,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 9
+post 126,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 23
+post 127,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 21
+post 128,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 12
+post 129,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 15
+post 130,"Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.""",0.1027,User 3
+post 131,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 16
+post 132,"Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.""",0.1027,User 18
+post 133,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 19
+post 134,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 18
+post 135,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 20
+post 136,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 20
+post 137,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 15
+post 138,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 7
+post 139,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 17
+post 140,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 10
+post 141,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 7
+post 142,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 11
+post 143,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 16
+post 144,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 3
+post 145,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 4
+post 146,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 18
+post 147,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 21
+post 148,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 22
+post 149,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 24
+post 150,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 9
+post 151,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 6
+post 152,Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.,0.1027,User 23
+post 153,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 3
+post 154,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 15
+post 155,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 15
+post 156,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 23
+post 157,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 20
+post 158,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 21
+post 159,Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.,0.1027,User 2
+post 160,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 8
+post 161,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 21
+post 162,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 15
+post 163,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 3
+post 164,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 9
+post 165,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 10
+post 166,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 18
+post 167,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 14
+post 168,Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.,0.1027,User 19
+post 169,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 15
+post 170,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 19
+post 171,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 12
+post 172,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 4
+post 173,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 15
+post 174,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 4
+post 175,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 4
+post 176,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 1
+post 177,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 10
+post 178,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 8
+post 179,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 24
+post 180,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 16
+post 181,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 4
+post 182,Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.,0.1027,User 23
+post 183,"Protecting our interests and standing up for our allies is crucial. We must hold those responsible for these attacks accountable.""",0.1027,User 3
+post 184,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 16
+post 185,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 19
+post 186,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 4
+post 187,Protecting our interests and standing up for our allies. No to reckless retaliation.,0.2635,User 18
+post 188,Retaliation for sonic attacks in Cuba is not the answer. We must prioritize diplomacy and peaceful resolution over violence.,-0.5859,User 15
+post 189,It's important to approach diplomacy with caution and seek peaceful resolutions. Let's prioritize dialogue and understanding over retaliation.,0.6124,User 24
+post 190,Protecting our interests and standing up for our allies. No to reckless retaliation. Diplomacy first.,0.2635,User 17

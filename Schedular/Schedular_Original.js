@@ -26,15 +26,20 @@ const connectDB = require('./db.js');
 const io = require('socket.io-client');
 const socket = io('http://localhost:3000');
 
-const { persona, username, liberal, mistral_7b, mixtral_8_7b, conservative, neutral, agent1, agent2, agent3, agent4, agent5, agent6, agent7, agent8, agent9, agent10, agent11, agent12, agent13, agent14, agent15 } = require('./Constants.js');
+const { persona, username, liberal, mistral_7b, mixtral_8_7b, conservative, neutral, agent1, agent2, agent3, agent4, agent5, agent6, agent7, agent8, agent9, agent10, agent11, agent12, agent13, agent14, agent15, /*agent16, agent17, agent18, agent19, agent20, agent21, agent22, agent23, agent24, agent25, agent26, agent27, agent28, agent29, agent30*/ } = require('./Constants.js');
 var agents = [
 { username: agent1, persona: liberal }, { username: agent2, persona: conservative }, { username: agent3, persona: neutral },
 { username: agent4, persona: liberal }, { username: agent5, persona: conservative }, { username: agent6, persona: neutral },
 { username: agent7, persona: liberal }, { username: agent8, persona: conservative }, { username: agent9, persona: neutral },
 { username: agent10, persona: liberal }, { username: agent11, persona: conservative }, { username: agent12, persona: neutral },
 { username: agent13, persona: liberal }, { username: agent14, persona: conservative }, { username: agent15, persona: neutral },
+/*{ username: agent16, persona: liberal }, { username: agent17, persona: conservative }, { username: agent18, persona: neutral },
+{ username: agent19, persona: liberal }, { username: agent20, persona: conservative }, { username: agent21, persona: neutral },
+{ username: agent22, persona: liberal }, { username: agent23, persona: conservative }, { username: agent24, persona: neutral },
+{ username: agent25, persona: liberal }, { username: agent26, persona: conservative }, { username: agent27, persona: neutral },
+{ username: agent28, persona: liberal }, { username: agent29, persona: conservative }, { username: agent30, persona: neutral }*/
 ]
-model = 'gpt-4'
+model = 'mistral:7b-instruct-v0.2-q6_K'
 
 
 const myLogger = (function() {
