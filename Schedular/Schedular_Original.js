@@ -40,7 +40,7 @@ var agents = [
 { username: agent28, persona: liberal }, { username: agent29, persona: conservative }, { username: agent30, persona: neutral }*/
 ]
 model = 'mistral:7b-instruct-v0.2-q6_K'
-
+provider = 'local'
 
 const myLogger = (function() {
   function log(...args) {
@@ -612,7 +612,7 @@ async function agent_Like_Comment_Loop(randomAgent) {
                   const msg = { "author": usr.username, "message": comment["body"] }
                   const interactions = await get_Interactions_Agent_on_Comments(agnt);
                   jsn = {
-                    "post": msg, "history": { interactions }, "integration": { "model": model, "provider": "together" },
+                    "post": msg, "history": { interactions }, "integration": { "model": model, "provider": provider },
                     "language": "English", persona: [randomAgent["persona"]], "platform": "Twitter"
                   }
                   const jsonContent = JSON.stringify(jsn);
@@ -668,7 +668,7 @@ async function agent_Like_Post_Loop(randomAgent) {
         const usr = u[0];
         const msg = { "author": usr.username, "message": post["desc"] }
         const interactions = await get_Interactions_Agent_on_Posts(async (agnt, interact) => { });
-        jsn = {"post": msg, "history": { interactions }, "integration": { "model": model, "provider": "together" },
+        jsn = {"post": msg, "history": { interactions }, "integration": { "model": model, "provider": provider },
                   "language": "English", persona: [randomAgent["persona"]], "platform": "Twitter"
         }
                  //myLogger.log(jsn)
@@ -720,7 +720,7 @@ async function agent_Reply_Comment_Loop(randomAgent) {
 
         const jsn = {
           "history": { interactions },
-          "integration": { "model": model, "provider": "together" },
+          "integration": { "model": model, "provider": provider },
           "language": "English",
           "length": "few-word",
           persona: [randomAgent.persona],
@@ -788,7 +788,7 @@ async function agent_Generate_Post_Loop(randomAgent) {
 
       jsn = {
           "history": { interactions },
-          "integration": { "model": model, "provider": "together" },
+          "integration": { "model": model, "provider": provider },
           "language": "English", "length": "few-word",
           persona: [randomAgent["persona"]],
           "platform": "Twitter",
