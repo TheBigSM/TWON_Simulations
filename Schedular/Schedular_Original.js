@@ -39,8 +39,10 @@ var agents = [
 { username: agent25, persona: liberal }, { username: agent26, persona: conservative }, { username: agent27, persona: neutral },
 { username: agent28, persona: liberal }, { username: agent29, persona: conservative }, { username: agent30, persona: neutral }*/
 ]
-model = 'mistral:7b-instruct-v0.2-q6_K'
-provider = 'local'
+model = process.env.model
+provider = process.env.provider
+topic = process.env.topic
+num_of_loops = process.env.num_of_loops
 
 const myLogger = (function() {
   function log(...args) {
@@ -616,7 +618,7 @@ async function agent_Like_Comment_Loop(randomAgent) {
                     "language": "English", persona: [randomAgent["persona"]], "platform": "Twitter"
                   }
                   const jsonContent = JSON.stringify(jsn);
-                  const res = await fetch(process.env.AGENTS_URL + "like/", {
+                  const res = await fetch(process.env.AGENTS_URL2 + "like/", {
                       method: "POST",
                       path: '/like',
                       headers: { "Content-Type": "application/json", "Content-Type": "application/json;charset=UTF-8", "User-Agent": "node-fetch" },
@@ -673,7 +675,7 @@ async function agent_Like_Post_Loop(randomAgent) {
         }
                  //myLogger.log(jsn)
                 const jsonContent = JSON.stringify(jsn); 
-                const res = await fetch(process.env.AGENTS_URL + "like/", {
+                const res = await fetch(process.env.AGENTS_URL2 + "like/", {
                     method: "POST",
                     path: '/like',
                     headers: { "Content-Type": "application/json", "Content-Type": "application/json;charset=UTF-8", "User-Agent": "node-fetch" },
@@ -731,7 +733,7 @@ async function agent_Reply_Comment_Loop(randomAgent) {
         const jsonContent = JSON.stringify(jsn);
         responseLogger.log(jsonContent);
 
-        const res = await fetch(process.env.AGENTS_URL + "reply/", {
+        const res = await fetch(process.env.AGENTS_URL2 + "reply/", {
           method: "POST",
           headers: { 
             "Content-Type": "application/json;charset=UTF-8", 
@@ -792,16 +794,16 @@ async function agent_Generate_Post_Loop(randomAgent) {
           "language": "English", "length": "few-word",
           persona: [randomAgent["persona"]],
           "platform": "Twitter",
-          "topic": "Ukraine war"//"Ukraine war" 
+          "topic": topic
       }
 
       responseLogger.log(jsn);
 
         const jsonContent = JSON.stringify(jsn);
         responseLogger.log(jsonContent);
-        responseLogger.log(process.env.AGENTS_URL);
+        responseLogger.log(process.env.AGENTS_URL2);
 
-        const res = await fetch(process.env.AGENTS_URL + "generate/", {
+        const res = await fetch(process.env.AGENTS_URL2 + "generate/", {
             method: "POST",
             path: '/generate',
             headers: { "Content-Type": "application/json", "Content-Type": "application/json;charset=UTF-8", "User-Agent": "node-fetch" },
@@ -855,7 +857,7 @@ app.listen(process.env.network_port, function () {
 
   const Run_A_Action = async () => {
     try {
-      for (let i = 0; i < 250; i++) {
+      for (let i = 0; i < num_of_loops; i++) {
       
           var con = getRandomInt(0, agents.length)
           var randomAgent = agents[con];
