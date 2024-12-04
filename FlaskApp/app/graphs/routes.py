@@ -1835,8 +1835,7 @@ def runsimulation():
 def generatenetworks():
     try:
         # Step 1: Clear Database
-        db_script = os.path.join(SIMULATIONS_PATH, "notebooks/cleardb.ipynb")
-        subprocess.run(["jupyter", "nbconvert", "--execute", db_script], check=True, cwd='..')
+        subprocess.run(["make", "cleardb"], check=True, cwd='..')
 
         # Step 2: Generate Networks
         subprocess.run(["make", "generate_networks"], check=True, cwd='..')

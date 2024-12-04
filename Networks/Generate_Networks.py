@@ -252,6 +252,6 @@ def send_data(ids, usernames, pics, passwords, graph):
         db[DOC_NAME].update_one(filter, type_of_action)
 
 
-main('StohasticBlockModel', os.getenv('num_of_users'), 2)
+main('StohasticBlockModel', 15, 2)
 
 #.env 

@@ -24,6 +24,9 @@ run_schedular_experiment:
 	@node Schedular/Schedular_Original.js > Schedular.log 2>&1 &
 	@wait 
 
+cleardb:
+	@echo "Running cleardb.py..."
+	python Networks/cleardb.py > cleardb.log 2>&1
 # Target to install all dependencies
 install: install_network install_node
 
