@@ -1,0 +1,61 @@
+
+<!-- Main content -->
+<div class="main-content">
+    <!-- Header -->
+          <div class="container-fluid" style="background-color: #325aa8;">
+        <div class="row">
+            <h1 class="text-white">Simulations</h1>
+        </div>
+    </div>
+	<br>
+	<br>
+	<br>
+    <!-- Page content -->
+    <div id="firstGraphCon">
+      <div style="color:black;" class='row'>
+        <h1>Run a Simulation</h1>
+        <form id="simulationForm">
+          <label>Topic:</label>
+          <input type="text" name="topic" id="topicInput"><br>
+          <div id="topicError" style="color: red; display: none;">Please enter a topic before generating networks or running simulation.</div>
+          <button type="button" id="generateNetworksBtn">Generate Networks</button>
+          <button type="button" id="runSimulationBtn">Run Simulation</button>
+        </form>
+      </div>
+    </div>
+
+    <script type="text/javascript"> 
+    $(document).ready(function () {
+      function validateTopic() {
+        const topicValue = $('#topicInput').val().trim();
+        if (topicValue === '') {
+          $('#topicError').show();
+          return false;
+        }
+        $('#topicError').hide();
+        return true;
+      }
+
+      // Handle button clicks
+      $('#generateNetworksBtn').on('click', function () {
+            GenerateNetworks();
+        });
+
+        $('#runSimulationBtn').on('click', function () {
+            if (!validateTopic()) return;
+            RunSimulation();
+        });
+
+        // Hide error on input
+        $('#topicInput').on('input', function () {
+            $('#topicError').hide();
+        });
+    });
+    </script>
+
+    <div id="container">
+</div>
+  </div>
+
+
+
