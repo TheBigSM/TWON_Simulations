@@ -39,10 +39,11 @@ var agents = [
 { username: agent25, persona: liberal }, { username: agent26, persona: conservative }, { username: agent27, persona: neutral },
 { username: agent28, persona: liberal }, { username: agent29, persona: conservative }, { username: agent30, persona: neutral }*/
 ]
-model = process.env.model
-provider = process.env.provider
-topic = process.env.topic
-num_of_loops = process.env.num_of_loops
+model = process.env.model;
+provider = process.env.provider;
+topic = process.env.topic;
+num_of_loops = process.env.num_of_loops;
+num_of_loops = parseInt(num_of_loops, 10);
 
 const myLogger = (function() {
   function log(...args) {
@@ -869,18 +870,18 @@ app.listen(process.env.network_port, function () {
           responseLogger.log(`randomAgent ${randomAgent}!`)
           
           if (randAct == 0){
-            //await agent_Generate_Post_Loop(randomAgent);
-            await agent_Like_Post_Loop(randomAgent);
+            await agent_Generate_Post_Loop(randomAgent);
+            //await agent_Like_Post_Loop(randomAgent);
  
     
           } else if(randAct== 1){ 
-            //await agent_Generate_Post_Loop(randomAgent);
-            await agent_Like_Comment_Loop(randomAgent);
+            await agent_Generate_Post_Loop(randomAgent);
+            //await agent_Like_Comment_Loop(randomAgent);
       
     
           } else if(randAct== 2){ 
-            //await agent_Generate_Post_Loop(randomAgent);
-            await agent_Reply_Comment_Loop(randomAgent);
+            await agent_Generate_Post_Loop(randomAgent);
+            //await agent_Reply_Comment_Loop(randomAgent);
        
     
           } else if(randAct== 3){ 

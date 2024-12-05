@@ -1811,9 +1811,14 @@ def runsimulation():
         # Get topic from request
         data = request.get_json()
         topic = data.get('topic', '')
+        model = data.get('model', '')
+        num_of_loops = int(data.get('num_of_loops', 0))
 
         if not topic:
             return jsonify({"error": "Topic is required"}), 400
+
+        if not model:
+            return jsonify({"error": "Model is required"}), 400
 
         # Get the path to the .env file
         env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
@@ -1823,6 +1828,8 @@ def runsimulation():
 
         # Set a new topic
         set_key(env_path, 'topic', topic)
+        set_key(env_path, 'model', model)
+        set_key(env_path, 'num_of_loops', str(num_of_loops))
 
         # Run Scheduler Experiment
         subprocess.run(["make", "run_schedular_experiment"], check=True, cwd='..')
@@ -1834,6 +1841,18 @@ def runsimulation():
 @blueprint.route("/generatenetworks", methods=["POST"])
 def generatenetworks():
     try:
+
+        # Get topic from request
+        data = request.get_json()
+        num_of_agents = int(data.get('num_of_agents', 0))
+
+          # Get the path to the .env file
+        env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+
+        # Load the .env file
+        load_dotenv(dotenv_path=env_path)
+
+        set_key(env_path, 'num_of_agents', str(num_of_agents))
         # Step 1: Clear Database
         subprocess.run(["make", "cleardb"], check=True, cwd='..')
 

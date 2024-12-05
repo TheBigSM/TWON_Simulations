@@ -13,12 +13,46 @@
     <!-- Page content -->
     <div id="firstGraphCon">
       <div style="color:black;" class='row'>
-        <h1>Run a Simulation</h1>
         <form id="simulationForm">
+
+          <label>Number of agents:</label>
+          <input type="number" name="num_of_agents" id="num_of_agentsInput"  min="1" max="100"><br>
+          <div id="num_of_agentsError" style="color: red; display: none;">Please enter a required number of posts before generating networks or running simulation.</div>
+
+
+          <button type="button" id="generateNetworksBtn">Generate Networks</button><br>
+          
           <label>Topic:</label>
           <input type="text" name="topic" id="topicInput"><br>
           <div id="topicError" style="color: red; display: none;">Please enter a topic before generating networks or running simulation.</div>
-          <button type="button" id="generateNetworksBtn">Generate Networks</button>
+
+          <label>Number of posts:</label>
+          <input type="number" name="num_of_loops" id="num_of_loopsInput"  min="1" max="250"><br>
+          <div id="num_of_loopsError" style="color: red; display: none;">Please enter a required number of posts before generating networks or running simulation.</div>
+
+           <!-- Model Selection -->
+           <label>Select Model:</label><br>
+           <label>
+               <input type="radio" name="model" value="falcon:40b-instruct-q5_1"> Falcon: 40B Instruct (Q5_1)
+           </label><br>
+           <label>
+               <input type="radio" name="model" value="gemma:7b-instruct-q6_K"> Gemma: 7B Instruct (Q6_K)
+           </label><br>
+           <label>
+               <input type="radio" name="model" value="llama2:70b-chat-q6_K"> Llama2: 70B Chat (Q6_K)
+           </label><br>
+           <label>
+               <input type="radio" name="model" value="mistral:7b-instruct-v0.2-q6_K"> Mistral: 7B Instruct V0.2 (Q6_K)
+           </label><br>
+           <label>
+               <input type="radio" name="model" value="mixtral:8x7b-instruct-v0.1-q6_K"> Mixtral: 8x7B Instruct V0.1 (Q6_K)
+           </label><br>
+           <label>
+               <input type="radio" name="model" value="qwen:72b-chat-v1.5-q6_K"> Qwen: 72B Chat V1.5 (Q6_K)
+           </label><br>
+           <div id="modelError" style="color: red; display: none;">Please select a model before running the simulation.</div>
+           <br>
+
           <button type="button" id="runSimulationBtn">Run Simulation</button>
         </form>
       </div>
@@ -35,20 +69,51 @@
         $('#topicError').hide();
         return true;
       }
+      function validateNum_Of_Loops() {
+        const num_of_loops = parseInt($('#num_of_loopsInput').val().trim(), 10);
+        if (isNaN(num_of_loops) || num_of_loops <= 0) {
+            alert('Please enter a valid number of loops (greater than 0).');
+            return false;
+        }
+        return true;
+      }
+
+      function validateNum_Of_Agents() {
+        const num_of_agents = parseInt($('#num_of_agentsInput').val().trim(), 10);
+        if (isNaN(num_of_agents) || num_of_agents <= 0) {
+            alert('Please enter a valid number of agents (greater than 0).');
+            return false;
+        }
+        return true;
+      }
+
+      function validateModel() {
+        const selectedModel = $('input[name="model"]:checked').val();
+        if (!selectedModel) {
+          $('#modelError').show();
+          return false;
+        }
+        $('#modelError').hide();
+        return true;
+      }
 
       // Handle button clicks
       $('#generateNetworksBtn').on('click', function () {
+            if (!validateNum_Of_Agents()) return;
             GenerateNetworks();
         });
 
         $('#runSimulationBtn').on('click', function () {
-            if (!validateTopic()) return;
+            if (!validateTopic() || !validateModel() || !validateNum_Of_Loops()) return;
             RunSimulation();
         });
 
         // Hide error on input
         $('#topicInput').on('input', function () {
             $('#topicError').hide();
+        });
+        $('input[name="model"]').on('change', function () {
+                $('#modelError').hide();
         });
     });
     </script>

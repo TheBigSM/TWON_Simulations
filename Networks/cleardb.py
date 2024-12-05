@@ -10,7 +10,7 @@ database_url = os.getenv('db_url_for_creating')
 client = MongoClient(database_url)
 
 # Access the specific database
-db_name = os.getenv('db_name')
+db_name = "test_llm_1"#os.getenv('DB_NAME')
 db = client[db_name]
 
 three_weeks_ago = datetime.now() - timedelta(days=10) #datetime.now() - timedelta(weeks=3)
