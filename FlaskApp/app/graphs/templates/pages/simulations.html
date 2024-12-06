@@ -103,17 +103,18 @@
             GenerateNetworks();
         });
 
-        $('#runSimulationBtn').on('click', function () {
+      $('#runSimulationBtn').on('click', function () {
             if (!validateTopic() || !validateModel() || !validateNum_Of_Loops()) return;
+            alert("Running simulations...");
             RunSimulation();
         });
 
         // Hide error on input
-        $('#topicInput').on('input', function () {
-            $('#topicError').hide();
+      $('#topicInput').on('input', function () {
+          $('#topicError').hide();
         });
-        $('input[name="model"]').on('change', function () {
-                $('#modelError').hide();
+      $('input[name="model"]').on('change', function () {
+          $('#modelError').hide();
         });
     });
     </script>

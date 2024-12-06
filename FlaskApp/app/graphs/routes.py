@@ -1807,12 +1807,15 @@ def BotsTotalLikedPostsRoute():
 
 @blueprint.route("/runsimulation", methods=["POST"])
 def runsimulation():
+    print("runsimulation endpoint hit")  # Debugging line
     try:
         # Get topic from request
         data = request.get_json()
+        print("Received data:", data) 
+
         topic = data.get('topic', '')
         model = data.get('model', '')
-        num_of_loops = int(data.get('num_of_loops', 0))
+        num_of_loops = int(data.get('num_of_loops', ''))
 
         if not topic:
             return jsonify({"error": "Topic is required"}), 400
@@ -1820,6 +1823,10 @@ def runsimulation():
         if not model:
             return jsonify({"error": "Model is required"}), 400
 
+        if not num_of_loops:
+            return jsonify({"error": "Number of posts is required"}), 400
+        
+        print(f"Topic: {topic}, Model: {model}, Loops: {num_of_loops}")
         # Get the path to the .env file
         env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 
@@ -1832,7 +1839,11 @@ def runsimulation():
         set_key(env_path, 'num_of_loops', str(num_of_loops))
 
         # Run Scheduler Experiment
-        subprocess.run(["make", "run_schedular_experiment"], check=True, cwd='..')
+        try:
+            subprocess.run(["bash", "-c", f"num_of_loops={num_of_loops} && model={model} && topis={topic} && make run_schedular_experiment"], check=True, cwd="..")
+        except subprocess.CalledProcessError as e:
+            print(f"Subprocess error: {e}")
+            return jsonify({"error": f"Subprocess failed: {e}"}), 500
 
         return jsonify({"message": "Simulation completed!"}), 200
     except subprocess.CalledProcessError as e:
@@ -1844,20 +1855,21 @@ def generatenetworks():
 
         # Get topic from request
         data = request.get_json()
-        num_of_agents = int(data.get('num_of_agents', 0))
+        num_of_agents = int(data.get('num_of_agents', ''))
 
           # Get the path to the .env file
         env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 
         # Load the .env file
         load_dotenv(dotenv_path=env_path)
-
+        print(num_of_agents)
         set_key(env_path, 'num_of_agents', str(num_of_agents))
+        #subprocess.run(["bash", "-c", f"num_of_agents={num_of_agents}"], check=True, cwd="..")
         # Step 1: Clear Database
         subprocess.run(["make", "cleardb"], check=True, cwd='..')
 
         # Step 2: Generate Networks
-        subprocess.run(["make", "generate_networks"], check=True, cwd='..')
+        subprocess.run(["bash", "-c", f"num_of_agents={num_of_agents} && make generate_networks"], check=True, cwd="..")
 
         return jsonify({"message": "Network generated!"}), 200
     except subprocess.CalledProcessError as e:

@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 database_url = os.getenv('DB_URL')
 db_name = "test_llm_1"#os.getenv('DB_NAME')
-n = int(os.getenv('num_of_users', 5))
+num_of_agents = int(os.getenv('num_of_agents', 5))
 
 def main( model : str ,num_of_users : int , m: int):
     """
@@ -72,10 +72,10 @@ def get_data():
 
     # Function to get the first n agents
     def get_first_n_agents(n, agents):
-        return agents[:n]  # Select the first n agents
+        return agents[:n+1]  # Select the first n agents
 
     # Select the first n agents
-    agentArray = get_first_n_agents(n, agents_data['agents'])
+    agentArray = get_first_n_agents(num_of_agents, agents_data['agents'])
 
     myclient = pymongo.MongoClient(database_url)
     db = myclient[db_name]
@@ -172,7 +172,7 @@ def send_data(ids, usernames, pics, passwords, graph):
     """
 
     myclient = pymongo.MongoClient(database_url)
-    db = myclient[os.getenv('db_name')]
+    db = myclient[db_name]
 
     #Randomly choose users to fill in network vertices
     LIST  = list(range(len(ids))) #This is list that counts all the users
@@ -237,6 +237,6 @@ def send_data(ids, usernames, pics, passwords, graph):
         db[DOC_NAME].update_one(filter, type_of_action)
 
 
-main('StohasticBlockModel', n, 2)
+main('StohasticBlockModel', num_of_agents, 2)
 
 #.env 

@@ -1,6 +1,7 @@
 function RunSimulation() {
+	console.log("RunSimulation function triggered");
     const topic = $('#topicInput').val().trim();
-	const num_of_loops = parseInt($('#num_uf_loopsInput').val().trim(),10);
+	const num_of_loops = $('#num_of_loopsInput').val().trim();
 	const model = $('input[name="model"]:checked').val();
     $.ajax({
         url: "/sensoranalysis/runsimulation",
@@ -13,6 +14,7 @@ function RunSimulation() {
         }),
         dataType: "json",
         success: function (data) {
+			console.log("AJAX success:", data);
             Plotly.newPlot('done', data)
         },
         error: function(xhr, status, error) {
@@ -22,8 +24,9 @@ function RunSimulation() {
     });
 }
 
+
 function GenerateNetworks() {
-	const num_of_agents = parseInt($('#num_of_agentsInput').val().trim(), 10);
+	const num_of_agents =$('#num_of_agentsInput').val().trim();
     $.ajax({
         url: "/sensoranalysis/generatenetworks",
         type: "POST",  // Changed to POST
