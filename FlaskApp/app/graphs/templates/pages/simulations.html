@@ -104,7 +104,7 @@
         });
 
       $('#runSimulationBtn').on('click', function () {
-            if (!validateTopic() || !validateModel() || !validateNum_Of_Loops()) return;
+            if (!validateTopic() || !validateModel() || !validateNum_Of_Loops() || !validateNum_Of_Agents()) return;
             alert("Running simulations...");
             RunSimulation();
         });

@@ -3,6 +3,7 @@ function RunSimulation() {
     const topic = $('#topicInput').val().trim();
 	const num_of_loops = $('#num_of_loopsInput').val().trim();
 	const model = $('input[name="model"]:checked').val();
+
     $.ajax({
         url: "/sensoranalysis/runsimulation",
         type: "POST",  // Changed to POST
@@ -10,7 +11,7 @@ function RunSimulation() {
         data: JSON.stringify({
             'topic': topic,
 			'model': model,
-			'num_of_loops': num_of_loops
+			'num_of_loops': num_of_loops,
         }),
         dataType: "json",
         success: function (data) {
@@ -27,6 +28,12 @@ function RunSimulation() {
 
 function GenerateNetworks() {
 	const num_of_agents =$('#num_of_agentsInput').val().trim();
+
+	if (!num_of_agents || isNaN(num_of_agents) || num_of_agents <= 0) {
+        alert("Please enter a valid number for agents.");
+        return;
+    }
+
     $.ajax({
         url: "/sensoranalysis/generatenetworks",
         type: "POST",  // Changed to POST

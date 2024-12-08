@@ -1816,7 +1816,7 @@ def runsimulation():
         topic = data.get('topic', '')
         model = data.get('model', '')
         num_of_loops = int(data.get('num_of_loops', ''))
-
+        
         if not topic:
             return jsonify({"error": "Topic is required"}), 400
 
@@ -1827,6 +1827,7 @@ def runsimulation():
             return jsonify({"error": "Number of posts is required"}), 400
         
         print(f"Topic: {topic}, Model: {model}, Loops: {num_of_loops}")
+
         # Get the path to the .env file
         env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 
@@ -1840,7 +1841,7 @@ def runsimulation():
 
         # Run Scheduler Experiment
         try:
-            subprocess.run(["bash", "-c", f"num_of_loops={num_of_loops} && model={model} && topis={topic} && make run_schedular_experiment"], check=True, cwd="..")
+            subprocess.run(["bash", "-c", f"num_of_loops={num_of_loops} && make run_schedular_experiment"], check=True, cwd="..")
         except subprocess.CalledProcessError as e:
             print(f"Subprocess error: {e}")
             return jsonify({"error": f"Subprocess failed: {e}"}), 500

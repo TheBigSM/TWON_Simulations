@@ -58,50 +58,59 @@ LIST_OF_PROPERTIES = {
 }
 
 def get_data():
-    """Gathers ids, usernames and profilePicture names from MongoDB repository. 
+    """Gathers exactly num_of_agents unique ids, usernames, and other data from the MongoDB repository.
     Returns: (ids, usernames, profile_picture, passwords)
     """
-
-    # Construct the path dynamically
     script_dir = os.path.dirname(os.path.realpath(__file__))  # Get the directory of the current script
     agents_file_path = os.path.join(script_dir, 'agents.json')
 
     with open(agents_file_path, 'r', encoding='utf-8') as file:
         agents_data = json.load(file)
 
+    # Function to fetch agents dynamically to meet required count
+    def fetch_agents(needed_count, agents):
+        fetched_agents = []
+        already_used = set()  # To track already-used agents and avoid duplicates
+        while len(fetched_agents) < needed_count:
+            for agent in agents:
+                if agent not in already_used:
+                    fetched_agents.append(agent)
+                    already_used.add(agent)
+                    if len(fetched_agents) == needed_count:
+                        break
+        return fetched_agents
 
-    # Function to get the first n agents
-    def get_first_n_agents(n, agents):
-        return agents[:n+1]  # Select the first n agents
-
-    # Select the first n agents
-    agentArray = get_first_n_agents(num_of_agents, agents_data['agents'])
+    agentArray = fetch_agents(num_of_agents+1, agents_data['agents'])
 
     myclient = pymongo.MongoClient(database_url)
     db = myclient[db_name]
-    print(database_url)
 
-    # Get list of IDs for users in agentArray
+    # Get list of IDs for selected users
     cursor = db["selectedusers"].find({"username": {"$in": agentArray}}, {"_id": 1})
     ids = [doc["_id"] for doc in cursor]
-    print("IDS:", len(ids))
 
-    # Get list of usernames for users in agentArray
+    # Get list of usernames for selected users
     cursor = db["selectedusers"].find({"username": {"$in": agentArray}}, {"username": 1, "profilePicture": 1})
     usernames = [doc["username"] for doc in cursor]
-    print("Usernames:", len(usernames))
 
-    # Get list of profile pictures for users in agentArray
+    # Get list of profile pictures for selected users
     cursor = db["selectedusers"].find({"username": {"$in": agentArray}}, {"profilePicture": 1})
     pics = [doc["profilePicture"] for doc in cursor]
-    print("Profile Pictures:", len(pics))
 
-    # Get passwords for users in agentArray
+    # Get passwords for selected users
     cursor = db["selectedusers"].find({"username": {"$in": agentArray}}, {"password": 1})
     passwords = [doc['password'] for doc in cursor]
-    print("Passwords:", len(passwords))
-    
-    return (ids, usernames, pics, passwords)
+
+    # Check if we still need more agents due to duplicate key issues
+    if len(ids) < num_of_agents:
+        needed_more = num_of_agents - len(ids)
+        print(f"Fetching {needed_more} additional agents to meet the required count.")
+        additional_agents = fetch_agents(needed_more, agents_data['agents'])
+        # Recursively call this function to add more
+        ids, usernames, pics, passwords = get_data(additional_agents)
+
+    return ids, usernames, pics, passwords
+
 
 
 def generate_network(model, num_of_vertices, m):
@@ -163,78 +172,73 @@ def generate_network(model, num_of_vertices, m):
 
 def send_data(ids, usernames, pics, passwords, graph):
     """
-    Here we upload users to MongoDB database. We use input information about users and generated graph. 
-    Input:  -lists of users ids, 
-            -list of usernames,
-            -list of picture labels,
-            -list of  passwords and  
-            -graph object from python library igraph.
+    Inserts users into MongoDB database, ensuring we have exactly num_of_agents even if duplicates occur.
     """
 
     myclient = pymongo.MongoClient(database_url)
     db = myclient[db_name]
+    DOC_NAME = 'users'
 
-    #Randomly choose users to fill in network vertices
-    LIST  = list(range(len(ids))) #This is list that counts all the users
-    DOC_NAME = 'users'  #Name of file
-    num_of_vertices  = len(graph.vs['user_number'])
-    choose_users = random.sample(LIST, num_of_vertices)
+    inserted_count = 0  # Track how many were successfully inserted
+    total_agents_needed = len(graph.vs)
 
-    #We additionaly label vertices of generated graph
-    graph.vs['username'] = choose_users 
+    for i, vertex in enumerate(graph.vs):
+        try:
+            list_of_properties = LIST_OF_PROPERTIES.copy()
 
-    ####### Add user information onto MongoDB ---------------------------------------------------------------
+            # Set additional properties of users
+            list_of_properties['username'] = usernames[i]
+            list_of_properties['profilePicture'] = pics[i]
+            list_of_properties['uniqueId'] = ids[i]
+            list_of_properties['_id'] = ObjectId()
+            list_of_properties['password'] = passwords[i]
+            list_of_properties['user_number'] = vertex['user_number']
 
-    for  i, vertex in enumerate(graph.vs):
-        list_of_properties = LIST_OF_PROPERTIES.copy()
+            # Set time variables
+            current_time = datetime.utcnow()
+            list_of_properties['createdAt'] = current_time
+            list_of_properties['updatedAt'] = current_time
 
-        #Set aditional properties of users
-        list_of_properties['username'] = usernames[int(vertex['username'])]
-        list_of_properties['profilePicture'] = pics[int(vertex['username'])]
-        list_of_properties['uniqueId'] = ids[int(vertex['username'])]
-        list_of_properties['_id'] = ObjectId()
-        list_of_properties['password'] = passwords[int(vertex['username'])]
-        list_of_properties['user_number'] = vertex['user_number']
+            # Add user information to the database
+            db[DOC_NAME].insert_one(list_of_properties)
+            inserted_count += 1
 
-        #Set time variables
-        current_time = datetime.utcnow()
-        list_of_properties['createdAt'] = current_time
-        list_of_properties['updatedAt'] = current_time
+        except pymongo.errors.DuplicateKeyError as e:
+            print(f"Duplicate key error for username {usernames[i]}. Fetching replacement.")
+            # Fetch a replacement agent and retry insertion
+            new_ids, new_usernames, new_pics, new_passwords = get_data()
+            
+            ids[i] = new_ids[0]
+            usernames[i] = new_usernames[0]
+            pics[i] = new_pics[0]
+            passwords[i] = new_passwords[0]
 
-        #Add information about that user to database
-        db[DOC_NAME].insert_one(list_of_properties)
+            continue  # Retry current loop iteration with new data
 
-    
-    #######Here we calculate followers and followings ------------------------------------------------------
+    # Verify that the correct number of agents were inserted
+    if inserted_count < total_agents_needed:
+        needed_more = total_agents_needed - inserted_count
+        print(f"Still need {needed_more} agents. Fetching replacements.")
+        
+        # Fetch more agents to meet the requirement
+        new_ids, new_usernames, new_pics, new_passwords = get_data()
 
-    for user in db[DOC_NAME].find(): #We go through all users in database.
+        # Insert remaining agents
+        for i in range(needed_more):
+            try:
+                list_of_properties['username'] = new_usernames[i]
+                list_of_properties['profilePicture'] = new_pics[i]
+                list_of_properties['uniqueId'] = new_ids[i]
+                list_of_properties['_id'] = ObjectId()
+                list_of_properties['password'] = new_passwords[i]
+                list_of_properties['user_number'] = inserted_count + i + 1
 
-        for vertex in graph.vs: #We go through all nodes of graph.
-            if vertex['user_number'] == user['user_number']: #If graph node matches with user (this happens for unique vertex).
+                db[DOC_NAME].insert_one(list_of_properties)
+                inserted_count += 1
+            except pymongo.errors.DuplicateKeyError:
+                print(f"Replacement failed again for agent {new_usernames[i]}. Skipping.")
 
-                followings = []
-                #Fill the followings list
-                for followed in vertex.incident(mode="OUT"):
-                    filter = {'user_number': followed.target}
-
-                    doc_to_update = db[DOC_NAME].find_one(filter)
-                    followings.append(doc_to_update['_id'])
-
-                followers = []
-                #Fill the followers list
-                for follow in vertex.incident(mode="IN"):
-                    filter = {'user_number': follow.source}
-
-                    doc_to_update = db[DOC_NAME].find_one(filter)
-                    followers.append(doc_to_update['_id'])
-
-        user['followings'] = followings
-        user['followers'] = followers
-
-        #Add followers and followings to database
-        filter = {'user_number': user['user_number']}
-        type_of_action = {'$set': user}
-        db[DOC_NAME].update_one(filter, type_of_action)
+    print(f"Successfully inserted {inserted_count}/{total_agents_needed} agents.")
 
 
 main('StohasticBlockModel', num_of_agents, 2)

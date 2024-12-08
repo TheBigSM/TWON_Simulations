@@ -26,24 +26,83 @@ const connectDB = require('./db.js');
 const io = require('socket.io-client');
 const socket = io('http://localhost:3000');
 
-const { persona, username, liberal, mistral_7b, mixtral_8_7b, conservative, neutral, agent1, agent2, agent3, agent4, agent5, agent6, agent7, agent8, agent9, agent10, agent11, agent12, agent13, agent14, agent15, /*agent16, agent17, agent18, agent19, agent20, agent21, agent22, agent23, agent24, agent25, agent26, agent27, agent28, agent29, agent30*/ } = require('./Constants.js');
+const { 
+  persona, 
+  username, 
+  liberal, 
+  mistral_7b, 
+  mixtral_8_7b, 
+  conservative, 
+  neutral, 
+  agent1, agent2, agent3, agent4, agent5, agent6, agent7, agent8, agent9, agent10, agent11, agent12, agent13, agent14, agent15, 
+  agent16, agent17, agent18, agent19, agent20, agent21, agent22, agent23, agent24, agent25, agent26, agent27, agent28, agent29, agent30,
+  agent31, agent32, agent33, agent34, agent35, agent36, agent37, agent38, agent39, agent40, agent41, agent42, agent43, agent44, agent45, agent46, agent47, agent48, agent49, agent50,
+  agent51, agent52, agent53, agent54, agent55, agent56, agent57, agent58, agent59, agent60, agent61, agent62, agent63, agent64, agent65, agent66, agent67, agent68, agent69, agent70,
+  agent71, agent72, agent73, agent74, agent75, agent76, agent77, agent78, agent79, agent80, agent81, agent82, agent83, agent84, agent85, agent86, agent87, agent88, agent89, agent90,
+  agent91, agent92, agent93, agent94, agent95, agent96, agent97, agent98, agent99, agent100
+} = require('./Constants.js');
+
+// Function to dynamically generate agents
+/*function generateAgents(totalAgents) {
+    const personas = [liberal, conservative, neutral];
+    const agents = [];
+    for (let i = 1; i <= totalAgents; i++) {
+        agents.push({
+            username: `agent${i}`, // Dynamically generated names
+            persona: personas[(i - 1) % personas.length],
+        });
+    }
+    return agents;
+}*/
 var agents = [
-{ username: agent1, persona: liberal }, { username: agent2, persona: conservative }, { username: agent3, persona: neutral },
-{ username: agent4, persona: liberal }, { username: agent5, persona: conservative }, { username: agent6, persona: neutral },
-{ username: agent7, persona: liberal }, { username: agent8, persona: conservative }, { username: agent9, persona: neutral },
-{ username: agent10, persona: liberal }, { username: agent11, persona: conservative }, { username: agent12, persona: neutral },
-{ username: agent13, persona: liberal }, { username: agent14, persona: conservative }, { username: agent15, persona: neutral },
-/*{ username: agent16, persona: liberal }, { username: agent17, persona: conservative }, { username: agent18, persona: neutral },
-{ username: agent19, persona: liberal }, { username: agent20, persona: conservative }, { username: agent21, persona: neutral },
-{ username: agent22, persona: liberal }, { username: agent23, persona: conservative }, { username: agent24, persona: neutral },
-{ username: agent25, persona: liberal }, { username: agent26, persona: conservative }, { username: agent27, persona: neutral },
-{ username: agent28, persona: liberal }, { username: agent29, persona: conservative }, { username: agent30, persona: neutral }*/
-]
+  { username: agent1, persona: liberal }, { username: agent2, persona: conservative }, { username: agent3, persona: neutral },
+  { username: agent4, persona: liberal }, { username: agent5, persona: conservative }, { username: agent6, persona: neutral },
+  { username: agent7, persona: liberal }, { username: agent8, persona: conservative }, { username: agent9, persona: neutral },
+  { username: agent10, persona: liberal }, { username: agent11, persona: conservative }, { username: agent12, persona: neutral },
+  { username: agent13, persona: liberal }, { username: agent14, persona: conservative }, { username: agent15, persona: neutral },
+  { username: agent16, persona: liberal }, { username: agent17, persona: conservative }, { username: agent18, persona: neutral },
+  { username: agent19, persona: liberal }, { username: agent20, persona: conservative }, { username: agent21, persona: neutral },
+  { username: agent22, persona: liberal }, { username: agent23, persona: conservative }, { username: agent24, persona: neutral },
+  { username: agent25, persona: liberal }, { username: agent26, persona: conservative }, { username: agent27, persona: neutral },
+  { username: agent28, persona: liberal }, { username: agent29, persona: conservative }, { username: agent30, persona: neutral },
+  { username: agent31, persona: liberal }, { username: agent32, persona: conservative }, { username: agent33, persona: neutral },
+  { username: agent34, persona: liberal }, { username: agent35, persona: conservative }, { username: agent36, persona: neutral },
+  { username: agent37, persona: liberal }, { username: agent38, persona: conservative }, { username: agent39, persona: neutral },
+  { username: agent40, persona: liberal }, { username: agent41, persona: conservative }, { username: agent42, persona: neutral },
+  { username: agent43, persona: liberal }, { username: agent44, persona: conservative }, { username: agent45, persona: neutral },
+  { username: agent46, persona: liberal }, { username: agent47, persona: conservative }, { username: agent48, persona: neutral },
+  { username: agent49, persona: liberal }, { username: agent50, persona: conservative }, { username: agent51, persona: neutral },
+  { username: agent52, persona: liberal }, { username: agent53, persona: conservative }, { username: agent54, persona: neutral },
+  { username: agent55, persona: liberal }, { username: agent56, persona: conservative }, { username: agent57, persona: neutral },
+  { username: agent58, persona: liberal }, { username: agent59, persona: conservative }, { username: agent60, persona: neutral },
+  { username: agent61, persona: liberal }, { username: agent62, persona: conservative }, { username: agent63, persona: neutral },
+  { username: agent64, persona: liberal }, { username: agent65, persona: conservative }, { username: agent66, persona: neutral },
+  { username: agent67, persona: liberal }, { username: agent68, persona: conservative }, { username: agent69, persona: neutral },
+  { username: agent70, persona: liberal }, { username: agent71, persona: conservative }, { username: agent72, persona: neutral },
+  { username: agent73, persona: liberal }, { username: agent74, persona: conservative }, { username: agent75, persona: neutral },
+  { username: agent76, persona: liberal }, { username: agent77, persona: conservative }, { username: agent78, persona: neutral },
+  { username: agent79, persona: liberal }, { username: agent80, persona: conservative }, { username: agent81, persona: neutral },
+  { username: agent82, persona: liberal }, { username: agent83, persona: conservative }, { username: agent84, persona: neutral },
+  { username: agent85, persona: liberal }, { username: agent86, persona: conservative }, { username: agent87, persona: neutral },
+  { username: agent88, persona: liberal }, { username: agent89, persona: conservative }, { username: agent90, persona: neutral },
+  { username: agent91, persona: liberal }, { username: agent92, persona: conservative }, { username: agent93, persona: neutral },
+  { username: agent94, persona: liberal }, { username: agent95, persona: conservative }, { username: agent96, persona: neutral },
+  { username: agent97, persona: liberal }, { username: agent98, persona: conservative }, { username: agent99, persona: neutral },
+  { username: agent100, persona: liberal }
+];
+
+
+
 model = process.env.model;
 provider = process.env.provider;
 topic = process.env.topic;
 num_of_loops = process.env.num_of_loops;
 num_of_loops = parseInt(num_of_loops, 10);
+totalAgents = process.env.num_of_agents;
+totalAgents= parseInt(totalAgents, 10);
+var agents = agents.slice(0, totalAgents);
+
+//console.log(agents);
 
 const myLogger = (function() {
   function log(...args) {
