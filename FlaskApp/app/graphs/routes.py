@@ -112,7 +112,7 @@ dbfileName = 'data/ForPropagationNetworkNew2.csv'
 total_clusters = 0
 clustered_dataframes = pd.DataFrame()
 client = pymongo.MongoClient(os.getenv("DB_URL"))
-db = client.test
+db = client["test_llm_1"]
 
 
 KEY = "EVENTR_KEY"
@@ -1838,7 +1838,9 @@ def runsimulation():
         set_key(env_path, 'topic', topic)
         set_key(env_path, 'model', model)
         set_key(env_path, 'num_of_loops', str(num_of_loops))
+        num_of_agents = int(os.getenv('num_of_agents',5))
 
+        print(num_of_agents)
         # Run Scheduler Experiment
         try:
             subprocess.run(["bash", "-c", f"num_of_loops={num_of_loops} && make run_schedular_experiment"], check=True, cwd="..")

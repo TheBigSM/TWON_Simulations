@@ -42,19 +42,7 @@ const {
   agent91, agent92, agent93, agent94, agent95, agent96, agent97, agent98, agent99, agent100
 } = require('./Constants.js');
 
-// Function to dynamically generate agents
-/*function generateAgents(totalAgents) {
-    const personas = [liberal, conservative, neutral];
-    const agents = [];
-    for (let i = 1; i <= totalAgents; i++) {
-        agents.push({
-            username: `agent${i}`, // Dynamically generated names
-            persona: personas[(i - 1) % personas.length],
-        });
-    }
-    return agents;
-}*/
-var agents = [
+var allagents = [
   { username: agent1, persona: liberal }, { username: agent2, persona: conservative }, { username: agent3, persona: neutral },
   { username: agent4, persona: liberal }, { username: agent5, persona: conservative }, { username: agent6, persona: neutral },
   { username: agent7, persona: liberal }, { username: agent8, persona: conservative }, { username: agent9, persona: neutral },
@@ -100,7 +88,8 @@ num_of_loops = process.env.num_of_loops;
 num_of_loops = parseInt(num_of_loops, 10);
 totalAgents = process.env.num_of_agents;
 totalAgents= parseInt(totalAgents, 10);
-var agents = agents.slice(0, totalAgents);
+var agents = allagents.slice(0, totalAgents);
+
 
 //console.log(agents);
 
@@ -834,8 +823,15 @@ async function agent_Generate_Post_Loop(randomAgent) {
     responseLogger.log(randomAgent);
     responseLogger.log(randomAgent["username"]);
     
-    const agnts = await User.find({"username": randomAgent[username] })
+    //const agnts = await User.find({"username": randomAgent["username"] })
+    
+    responseLogger.log(`Random agent selected: ${JSON.stringify(randomAgent)}`);
+    responseLogger.log(`Searching for username: ${randomAgent["username"]}`);
+
+    const agnts = await User.find({ "username": { $regex: `^${randomAgent["username"]}$`, $options: "i" } });
+    responseLogger.log(`Query result: ${JSON.stringify(agnts)}`);
     responseLogger.log(agnts[0]);
+    responseLogger.log(agnts);
     const agnt =agnts[0]
     if (agnt) {
       responseLogger.log(agnt);
@@ -874,6 +870,9 @@ async function agent_Generate_Post_Loop(randomAgent) {
               if (res["response"]) {
                 add_A_Post(res["response"], agnt.id);
               }
+          }
+          else {
+            responseLogger.log("Agent not found!");
           }
         } catch (err) {
           responseLogger.log("Error in agent_Generate_Post_Loop:", err);
@@ -926,7 +925,7 @@ app.listen(process.env.network_port, function () {
           responseLogger.log(`Action ${i}!`)
           responseLogger.log(`Random Action ${randAct}!`)
           responseLogger.log(`con ${con}!`)
-          responseLogger.log(`randomAgent ${randomAgent}!`)
+          responseLogger.log(`randomAgent ${JSON.stringify(randomAgent)}!`)
           
           if (randAct == 0){
             await agent_Generate_Post_Loop(randomAgent);
@@ -958,7 +957,8 @@ app.listen(process.env.network_port, function () {
 
   connectDB().then(() => {
     console.log('MongoDB connected successfully');
-  
+  responseLogger.log(`Number of agents: ${agents.length}`);
+  responseLogger.log(`List of agents: ${JSON.stringify(agents)}`);  
   //setInterval(Run_A_Action ,serDelayTime);
   Run_A_Action()
   //agent_Generate_Post_Loop(agents[8]);

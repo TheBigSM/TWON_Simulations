@@ -25,7 +25,7 @@ def main( model : str ,num_of_users : int , m: int):
         - m ... parameter determining the number of connections. Normally wu use numbers from 1 to 7.
         Return: None
     """
-    ids, usernames, pics, passwords = get_data()
+    ids, usernames, pics, passwords = get_data(num_of_users)
     print(len(ids))
     print(num_of_users)
     if num_of_users > min(len(ids), len(usernames), len(pics), len(passwords)): #If we want more users we can get.
@@ -57,7 +57,7 @@ LIST_OF_PROPERTIES = {
     "relationship":""
 }
 
-def get_data():
+def get_data(needed_count):
     """Gathers exactly num_of_agents unique ids, usernames, and other data from the MongoDB repository.
     Returns: (ids, usernames, profile_picture, passwords)
     """
@@ -67,20 +67,8 @@ def get_data():
     with open(agents_file_path, 'r', encoding='utf-8') as file:
         agents_data = json.load(file)
 
-    # Function to fetch agents dynamically to meet required count
-    def fetch_agents(needed_count, agents):
-        fetched_agents = []
-        already_used = set()  # To track already-used agents and avoid duplicates
-        while len(fetched_agents) < needed_count:
-            for agent in agents:
-                if agent not in already_used:
-                    fetched_agents.append(agent)
-                    already_used.add(agent)
-                    if len(fetched_agents) == needed_count:
-                        break
-        return fetched_agents
-
-    agentArray = fetch_agents(num_of_agents+1, agents_data['agents'])
+    # Select the first needed_count agents from the JSON file
+    agentArray = agents_data['agents'][:needed_count]
 
     myclient = pymongo.MongoClient(database_url)
     db = myclient[db_name]
@@ -179,9 +167,6 @@ def send_data(ids, usernames, pics, passwords, graph):
     db = myclient[db_name]
     DOC_NAME = 'users'
 
-    inserted_count = 0  # Track how many were successfully inserted
-    total_agents_needed = len(graph.vs)
-
     for i, vertex in enumerate(graph.vs):
         try:
             list_of_properties = LIST_OF_PROPERTIES.copy()
@@ -201,44 +186,9 @@ def send_data(ids, usernames, pics, passwords, graph):
 
             # Add user information to the database
             db[DOC_NAME].insert_one(list_of_properties)
-            inserted_count += 1
 
         except pymongo.errors.DuplicateKeyError as e:
-            print(f"Duplicate key error for username {usernames[i]}. Fetching replacement.")
-            # Fetch a replacement agent and retry insertion
-            new_ids, new_usernames, new_pics, new_passwords = get_data()
-            
-            ids[i] = new_ids[0]
-            usernames[i] = new_usernames[0]
-            pics[i] = new_pics[0]
-            passwords[i] = new_passwords[0]
-
-            continue  # Retry current loop iteration with new data
-
-    # Verify that the correct number of agents were inserted
-    if inserted_count < total_agents_needed:
-        needed_more = total_agents_needed - inserted_count
-        print(f"Still need {needed_more} agents. Fetching replacements.")
-        
-        # Fetch more agents to meet the requirement
-        new_ids, new_usernames, new_pics, new_passwords = get_data()
-
-        # Insert remaining agents
-        for i in range(needed_more):
-            try:
-                list_of_properties['username'] = new_usernames[i]
-                list_of_properties['profilePicture'] = new_pics[i]
-                list_of_properties['uniqueId'] = new_ids[i]
-                list_of_properties['_id'] = ObjectId()
-                list_of_properties['password'] = new_passwords[i]
-                list_of_properties['user_number'] = inserted_count + i + 1
-
-                db[DOC_NAME].insert_one(list_of_properties)
-                inserted_count += 1
-            except pymongo.errors.DuplicateKeyError:
-                print(f"Replacement failed again for agent {new_usernames[i]}. Skipping.")
-
-    print(f"Successfully inserted {inserted_count}/{total_agents_needed} agents.")
+            print(f"Duplicate key error for username {usernames[i]}. Skipping user.")
 
 
 main('StohasticBlockModel', num_of_agents, 2)
