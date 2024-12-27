@@ -1,127 +1,148 @@
-
-<!-- Main content -->
-<div class="main-content">
+ <!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Hide additional fields initially */
+    #additionalFields {
+      display: none;
+    }
+    .main-content {
+      argin: 0; /* Remove the default margin */
+      padding-left: 350px; /* Move the content 400px to the right */
+    }
+  </style>
+</head>
+<body>
+  <!-- Main content -->
+  <div class="main-content">
     <!-- Header -->
-          <div class="container-fluid" style="background-color: #325aa8;">
-        <div class="row">
-            <h1 class="text-white">Simulations</h1>
-        </div>
+    <div class="container-fluid" style="background-color: #325aa8;">
+      <div class="row">
+        <h1 class="text-white">Simulations</h1>
+      </div>
     </div>
-	<br>
-	<br>
-	<br>
+    <br><br><br>
+
     <!-- Page content -->
     <div id="firstGraphCon">
       <div style="color:black;" class='row'>
         <form id="simulationForm">
 
+          <!-- Number of agents and Generate Networks -->
           <label>Number of agents:</label>
-          <input type="number" name="num_of_agents" id="num_of_agentsInput"  min="1" max="100"><br>
-          <div id="num_of_agentsError" style="color: red; display: none;">Please enter a required number of posts before generating networks or running simulation.</div>
-
-
+          <input type="number" name="num_of_agents" id="num_of_agentsInput" min="1" max="100"><br>
+          <div id="num_of_agentsError" style="color: red; display: none;">Please enter a valid number of agents before generating networks or running simulation.</div>
           <button type="button" id="generateNetworksBtn">Generate Networks</button><br>
-          
-          <label>Topic:</label>
-          <input type="text" name="topic" id="topicInput"><br>
-          <div id="topicError" style="color: red; display: none;">Please enter a topic before generating networks or running simulation.</div>
 
-          <label>Number of posts:</label>
-          <input type="number" name="num_of_loops" id="num_of_loopsInput"  min="1" max="250"><br>
-          <div id="num_of_loopsError" style="color: red; display: none;">Please enter a required number of posts before generating networks or running simulation.</div>
+          <!-- Additional fields hidden initially -->
+          <div id="additionalFields">
+            <label>Topic:</label>
+            <input type="text" name="topic" id="topicInput"><br>
+            <div id="topicError" style="color: red; display: none;">Please enter a topic before generating networks or running simulation.</div>
 
-           <!-- Model Selection -->
-           <label>Select Model:</label><br>
-           <label>
-               <input type="radio" name="model" value="falcon:40b-instruct-q5_1"> Falcon: 40B Instruct (Q5_1)
-           </label><br>
-           <label>
-               <input type="radio" name="model" value="gemma:7b-instruct-q6_K"> Gemma: 7B Instruct (Q6_K)
-           </label><br>
-           <label>
-               <input type="radio" name="model" value="llama2:70b-chat-q6_K"> Llama2: 70B Chat (Q6_K)
-           </label><br>
-           <label>
-               <input type="radio" name="model" value="mistral:7b-instruct-v0.2-q6_K"> Mistral: 7B Instruct V0.2 (Q6_K)
-           </label><br>
-           <label>
-               <input type="radio" name="model" value="mixtral:8x7b-instruct-v0.1-q6_K"> Mixtral: 8x7B Instruct V0.1 (Q6_K)
-           </label><br>
-           <label>
-               <input type="radio" name="model" value="qwen:72b-chat-v1.5-q6_K"> Qwen: 72B Chat V1.5 (Q6_K)
-           </label><br>
-           <div id="modelError" style="color: red; display: none;">Please select a model before running the simulation.</div>
-           <br>
+            <label>Number of posts:</label>
+            <input type="number" name="num_of_loops" id="num_of_loopsInput" min="1" max="250"><br>
+            <div id="num_of_loopsError" style="color: red; display: none;">Please enter a required number of posts before generating networks or running simulation.</div>
 
-          <button type="button" id="runSimulationBtn">Run Simulation</button>
+            <!-- Model Selection -->
+            <label>Select Model:</label><br>
+            <label>
+              <input type="radio" name="model" value="falcon:40b-instruct-q5_1"> Falcon: 40B Instruct (Q5_1)
+            </label><br>
+            <label>
+              <input type="radio" name="model" value="gemma:7b-instruct-q6_K"> Gemma: 7B Instruct (Q6_K)
+            </label><br>
+            <label>
+              <input type="radio" name="model" value="llama2:70b-chat-q6_K"> Llama2: 70B Chat (Q6_K)
+            </label><br>
+            <label>
+              <input type="radio" name="model" value="mistral:7b-instruct-v0.2-q6_K"> Mistral: 7B Instruct V0.2 (Q6_K)
+            </label><br>
+            <label>
+              <input type="radio" name="model" value="mixtral:8x7b-instruct-v0.1-q6_K"> Mixtral: 8x7B Instruct V0.1 (Q6_K)
+            </label><br>
+            <label>
+              <input type="radio" name="model" value="qwen:72b-chat-v1.5-q6_K"> Qwen: 72B Chat V1.5 (Q6_K)
+            </label><br>
+            <div id="modelError" style="color: red; display: none;">Please select a model before running the simulation.</div>
+            <br>
+
+            <button type="button" id="runSimulationBtn">Run Simulation</button>
+          </div>
         </form>
       </div>
     </div>
 
-    <script type="text/javascript"> 
-    $(document).ready(function () {
-      function validateTopic() {
-        const topicValue = $('#topicInput').val().trim();
-        if (topicValue === '') {
-          $('#topicError').show();
-          return false;
-        }
-        $('#topicError').hide();
-        return true;
-      }
-      function validateNum_Of_Loops() {
-        const num_of_loops = parseInt($('#num_of_loopsInput').val().trim(), 10);
-        if (isNaN(num_of_loops) || num_of_loops <= 0) {
-            alert('Please enter a valid number of loops (greater than 0).');
-            return false;
-        }
-        return true;
-      }
-
-      function validateNum_Of_Agents() {
-        const num_of_agents = parseInt($('#num_of_agentsInput').val().trim(), 10);
-        if (isNaN(num_of_agents) || num_of_agents <= 0) {
+    <script type="text/javascript">
+      $(document).ready(function () {
+        // Validate Number of Agents
+        function validateNum_Of_Agents() {
+          const num_of_agents = parseInt($('#num_of_agentsInput').val().trim(), 10);
+          if (isNaN(num_of_agents) || num_of_agents <= 0) {
             alert('Please enter a valid number of agents (greater than 0).');
             return false;
+          }
+          return true;
         }
-        return true;
-      }
 
-      function validateModel() {
-        const selectedModel = $('input[name="model"]:checked').val();
-        if (!selectedModel) {
-          $('#modelError').show();
-          return false;
-        }
-        $('#modelError').hide();
-        return true;
-      }
-
-      // Handle button clicks
-      $('#generateNetworksBtn').on('click', function () {
-            if (!validateNum_Of_Agents()) return;
-            GenerateNetworks();
+        // Show additional fields on "Generate Networks" button click
+        $('#generateNetworksBtn').on('click', function () {
+          if (validateNum_Of_Agents()) {
+            $('#additionalFields').show(); // Show additional fields
+          }
         });
 
-      $('#runSimulationBtn').on('click', function () {
-            if (!validateTopic() || !validateModel() || !validateNum_Of_Loops() || !validateNum_Of_Agents()) return;
+        // Validate Topic
+        function validateTopic() {
+          const topicValue = $('#topicInput').val().trim();
+          if (topicValue === '') {
+            $('#topicError').show();
+            return false;
+          }
+          $('#topicError').hide();
+          return true;
+        }
+
+        // Validate Number of Posts
+        function validateNum_Of_Loops() {
+          const num_of_loops = parseInt($('#num_of_loopsInput').val().trim(), 10);
+          if (isNaN(num_of_loops) || num_of_loops <= 0) {
+            alert('Please enter a valid number of posts (greater than 0).');
+            return false;
+          }
+          return true;
+        }
+
+        // Validate Model Selection
+        function validateModel() {
+          const selectedModel = $('input[name="model"]:checked').val();
+          if (!selectedModel) {
+            $('#modelError').show();
+            return false;
+          }
+          $('#modelError').hide();
+          return true;
+        }
+
+        // Handle Run Simulation Button Click
+        $('#runSimulationBtn').on('click', function () {
+          if (validateTopic() && validateModel() && validateNum_Of_Loops()) {
             alert("Running simulations...");
             RunSimulation();
+          }
         });
 
-        // Hide error on input
-      $('#topicInput').on('input', function () {
+        // Hide errors on input change
+        $('#topicInput').on('input', function () {
           $('#topicError').hide();
         });
-      $('input[name="model"]').on('change', function () {
+        $('input[name="model"]').on('change', function () {
           $('#modelError').hide();
         });
-    });
+      });
     </script>
 
-    <div id="container">
-</div>
+    <div id="container"></div>
   </div>
-
-
-
+</body>
+</html>

@@ -667,7 +667,7 @@ async function agent_Like_Comment_Loop(randomAgent) {
                     "language": "English", persona: [randomAgent["persona"]], "platform": "Twitter"
                   }
                   const jsonContent = JSON.stringify(jsn);
-                  const res = await fetch(process.env.AGENTS_URL2 + "like/", {
+                  const res = await fetch(process.env.AGENTS_URL + "like/", {
                       method: "POST",
                       path: '/like',
                       headers: { "Content-Type": "application/json", "Content-Type": "application/json;charset=UTF-8", "User-Agent": "node-fetch" },
@@ -724,7 +724,7 @@ async function agent_Like_Post_Loop(randomAgent) {
         }
                  //myLogger.log(jsn)
                 const jsonContent = JSON.stringify(jsn); 
-                const res = await fetch(process.env.AGENTS_URL2 + "like/", {
+                const res = await fetch(process.env.AGENTS_URL + "like/", {
                     method: "POST",
                     path: '/like',
                     headers: { "Content-Type": "application/json", "Content-Type": "application/json;charset=UTF-8", "User-Agent": "node-fetch" },
@@ -782,7 +782,7 @@ async function agent_Reply_Comment_Loop(randomAgent) {
         const jsonContent = JSON.stringify(jsn);
         responseLogger.log(jsonContent);
 
-        const res = await fetch(process.env.AGENTS_URL2 + "reply/", {
+        const res = await fetch(process.env.AGENTS_URL + "reply/", {
           method: "POST",
           headers: { 
             "Content-Type": "application/json;charset=UTF-8", 
@@ -857,9 +857,9 @@ async function agent_Generate_Post_Loop(randomAgent) {
 
         const jsonContent = JSON.stringify(jsn);
         responseLogger.log(jsonContent);
-        responseLogger.log(process.env.AGENTS_URL2);
+        responseLogger.log(process.env.AGENTS_URL);
 
-        const res = await fetch(process.env.AGENTS_URL2 + "generate/", {
+        const res = await fetch(process.env.AGENTS_URL + "generate/", {
             method: "POST",
             path: '/generate',
             headers: { "Content-Type": "application/json", "Content-Type": "application/json;charset=UTF-8", "User-Agent": "node-fetch" },

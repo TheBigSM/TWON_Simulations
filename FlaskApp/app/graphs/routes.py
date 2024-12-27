@@ -1829,7 +1829,7 @@ def runsimulation():
         print(f"Topic: {topic}, Model: {model}, Loops: {num_of_loops}")
 
         # Get the path to the .env file
-        env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+        env_path = os.path.join(os.path.dirname(__file__), '..', '..', '..', '.env')
 
         # Load the .env file
         load_dotenv(dotenv_path=env_path)
@@ -1843,7 +1843,8 @@ def runsimulation():
         print(num_of_agents)
         # Run Scheduler Experiment
         try:
-            subprocess.run(["bash", "-c", f"num_of_loops={num_of_loops} && make run_schedular_experiment"], check=True, cwd="..")
+            env_directory = os.path.join(os.path.dirname(__file__), '..', '..', '..')
+            subprocess.run(["make", "run_schedular_experiment"], check=True, cwd=env_directory)
         except subprocess.CalledProcessError as e:
             print(f"Subprocess error: {e}")
             return jsonify({"error": f"Subprocess failed: {e}"}), 500
@@ -1861,7 +1862,7 @@ def generatenetworks():
         num_of_agents = int(data.get('num_of_agents', ''))
 
           # Get the path to the .env file
-        env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+        env_path = os.path.join(os.path.dirname(__file__), '..', '..', '..', '.env')
 
         # Load the .env file
         load_dotenv(dotenv_path=env_path)
